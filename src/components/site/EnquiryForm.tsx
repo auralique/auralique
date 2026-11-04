@@ -10,10 +10,10 @@ const schema = z.object({
   email: z.string().trim().email("Please enter a valid business email").max(255),
   brand: z.string().trim().min(1, "Please enter your brand name").max(100),
   website: z.string().trim().max(255).refine((v) => v === "" || /^(https?:\/\/)?[\w-]+(\.[\w-]+)+.*$/.test(v), "Please enter a valid URL"),
-  industry: z.string().min(1, "Please select an industry"),
+  industry: z.string({ required_error: "Please select an industry" }).min(1, "Please select an industry"),
   platforms: z.array(z.string()).min(1, "Select at least one platform"),
   services: z.array(z.string()).min(1, "Select at least one service"),
-  budget: z.string().min(1, "Please select a budget range"),
+  budget: z.string({ required_error: "Please select a budget range" }).min(1, "Please select a budget range"),
   message: z.string().trim().min(10, "Tell us a little about your objectives").max(2000),
 });
 
