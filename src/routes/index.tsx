@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { ArrowRight, ArrowUpRight, Plus, Mail, Instagram, Linkedin } from "lucide-react";
 import type { ReactNode } from "react";
 import { Header } from "@/components/site/Header";
+import { PlatformLogos } from "@/components/site/PlatformLogos";
 import { EnquiryForm } from "@/components/site/EnquiryForm";
 import {
   nav, principles, platforms, industries, services, benefits, process, engagements, portfolioCategories, faqs,
@@ -82,6 +83,8 @@ function Index() {
             </p>
           </div>
         </section>
+
+        <PlatformLogos />
 
         {/* ABOUT */}
         <Section id="about" className="bg-secondary">
