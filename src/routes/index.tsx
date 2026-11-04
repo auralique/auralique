@@ -1,9 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { ArrowRight, ArrowUpRight, Mail, Instagram, Linkedin } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Plus, Mail, Instagram, Linkedin } from "lucide-react";
 import type { ReactNode } from "react";
 import { Header } from "@/components/site/Header";
 import { EnquiryForm } from "@/components/site/EnquiryForm";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import {
   nav, principles, platforms, industries, services, benefits, process, engagements, portfolioCategories, faqs,
 } from "@/lib/content";
@@ -237,14 +236,17 @@ function Index() {
               <p className="eyebrow mb-5 text-primary">FAQ</p>
               <h2 className="display text-4xl md:text-5xl">Frequently asked questions.</h2>
             </div>
-            <Accordion type="single" collapsible className="md:col-span-8">
-              {faqs.map(([q, a], i) => (
-                <AccordionItem key={q} value={`q${i}`} className="border-foreground/15">
-                  <AccordionTrigger className="py-6 text-left text-lg font-semibold hover:text-primary hover:no-underline">{q}</AccordionTrigger>
-                  <AccordionContent className="pb-6 text-base text-muted-foreground">{a}</AccordionContent>
-                </AccordionItem>
+            <div className="md:col-span-8">
+              {faqs.map(([q, a]) => (
+                <details key={q} className="group border-b border-foreground/15">
+                  <summary className="flex cursor-pointer list-none items-center justify-between gap-6 py-6 text-lg font-semibold transition-colors hover:text-primary [&::-webkit-details-marker]:hidden">
+                    {q}
+                    <Plus size={18} className="shrink-0 text-primary transition-transform duration-300 group-open:rotate-45" />
+                  </summary>
+                  <p className="pb-6 text-base text-muted-foreground">{a}</p>
+                </details>
               ))}
-            </Accordion>
+            </div>
           </div>
         </Section>
 
