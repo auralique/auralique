@@ -58,30 +58,43 @@ function Index() {
       <main>
         {/* HERO */}
         <section id="home" className="relative overflow-hidden bg-primary px-5 pb-20 pt-20 text-primary-foreground md:px-8 md:pb-28 md:pt-28">
-          <div className="mx-auto max-w-7xl">
-            <p className="eyebrow fade-up mb-8 text-primary-foreground/80">Full-service e-commerce growth agency</p>
-            <h1 className="display fade-up text-[13vw] leading-[0.95] md:text-[7.5rem]">
-              We build.<br />We manage.<br /><em className="text-secondary">We grow.</em>
-            </h1>
-            <div className="mt-14 grid gap-10 border-t border-primary-foreground/25 pt-10 md:grid-cols-12">
-              <p className="display text-2xl leading-snug md:col-span-6 md:text-3xl">
+          <div className="mx-auto grid max-w-7xl items-center gap-14 lg:grid-cols-12">
+            <div className="lg:col-span-7">
+              <p className="eyebrow fade-up mb-8 text-primary-foreground/80">Full-service e-commerce growth agency</p>
+              <h1 className="display fade-up text-[13vw] leading-[0.95] md:text-[6.5rem]">
+                We build.<br />We manage.<br /><em className="text-secondary">We grow.</em>
+              </h1>
+              <p className="display mt-10 text-2xl leading-snug md:text-3xl">
                 Your complete e-commerce growth partner for ambitious skincare, haircare, cosmetics and personal-care brands.
               </p>
-              <div className="md:col-span-5 md:col-start-8">
-                <p className="leading-relaxed text-primary-foreground/85">
-                  From brand identity and online store development to marketplace management, digital advertising and customer retention, AURALIQUE brings every part of your digital commerce growth together.
-                </p>
-                <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                  <a href="#contact" className="btn-inverse">Book a strategy call <ArrowRight size={16} /></a>
-                  <a href="#services" className="btn-ghost-light">Explore our services</a>
-                </div>
+              <p className="mt-6 max-w-xl leading-relaxed text-primary-foreground/85">
+                From brand identity and online store development to marketplace management, digital advertising and customer retention, AURALIQUE brings every part of your digital commerce growth together.
+              </p>
+              <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+                <a href="#contact" className="btn-inverse">Book a strategy call <ArrowRight size={16} /></a>
+                <a href="#services" className="btn-ghost-light">Explore our services</a>
               </div>
+              <p className="eyebrow mt-16 flex flex-wrap gap-x-6 gap-y-2 text-primary-foreground/70">
+                {["Strategy", "Commerce", "Creative", "Performance"].map((w, i) => (
+                  <span key={w} className="flex items-center gap-6">{i > 0 && <span aria-hidden className="h-px w-8 bg-primary-foreground/40" />}{w}.</span>
+                ))}
+              </p>
             </div>
-            <p className="eyebrow mt-20 flex flex-wrap gap-x-6 gap-y-2 text-primary-foreground/70">
-              {["Strategy", "Commerce", "Creative", "Performance"].map((w, i) => (
-                <span key={w} className="flex items-center gap-6">{i > 0 && <span aria-hidden className="h-px w-8 bg-primary-foreground/40" />}{w}.</span>
-              ))}
-            </p>
+            <div className="fade-up lg:col-span-5">
+              <figure className="relative overflow-hidden rounded-3xl border border-primary-foreground/25 shadow-2xl shadow-plum/30">
+                <video
+                  src={heroMotionVideo.url}
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  preload="auto"
+                  aria-label="Animated illustration of beauty and skincare products"
+                  className="aspect-[4/5] w-full object-cover"
+                />
+                <figcaption className="sr-only">Animated beauty and skincare product illustration</figcaption>
+              </figure>
+            </div>
           </div>
         </section>
 
