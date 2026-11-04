@@ -9,6 +9,7 @@ import {
 } from "@/lib/content";
 import { siteConfig } from "@/lib/site-config";
 import { cn } from "@/lib/utils";
+import heroMotionVideo from "@/assets/videos/hero_beauty_motion.mp4.asset.json";
 
 const title = "AURALIQUE — E-commerce Growth Agency for Beauty Brands";
 const description =
