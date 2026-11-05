@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { nav } from "@/lib/content";
 import { cn } from "@/lib/utils";
+import logo from "@/assets/auralique-logo.png.asset.json";
 
 export function Header() {
   const [open, setOpen] = useState(false);
