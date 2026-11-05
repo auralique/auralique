@@ -24,7 +24,7 @@ export function Header() {
     >
       <div className="mx-auto flex h-18 max-w-7xl items-center justify-between px-5 py-4 md:px-8">
         <a href="#home" className="flex items-center" aria-label="AURALIQUE — Growth, Elevated.">
-          <img src={logo.url} alt="AURALIQUE — Growth, Elevated." className="h-11 w-auto md:h-13" />
+          <img src={logo.url} alt="AURALIQUE — Growth, Elevated." className="h-11 w-auto md:h-14" />
         </a>
         <nav aria-label="Primary" className="hidden lg:block">
           <ul className="flex items-center gap-8">
