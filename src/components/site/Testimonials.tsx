@@ -80,10 +80,6 @@ export function Testimonials() {
               <>View all reviews <ChevronDown size={14} /></>
             )}
           </button>
-          <p className="max-w-xl text-center text-xs leading-relaxed text-muted-foreground">
-            Demonstration content: the names, portraits and reviews shown here are illustrative sample profiles,
-            not verified AURALIQUE clients. They will be replaced with genuine customer reviews as they become available.
-          </p>
         </div>
       </div>
     </section>
