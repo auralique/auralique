@@ -5,6 +5,7 @@ import { Header } from "@/components/site/Header";
 import { PlatformLogos } from "@/components/site/PlatformLogos";
 import { EnquiryForm } from "@/components/site/EnquiryForm";
 import { Journal } from "@/components/site/Journal";
+import { Testimonials } from "@/components/site/Testimonials";
 import {
   nav, principles, platforms, industries, services, benefits, process, engagements, portfolioCategories, faqs,
 } from "@/lib/content";
@@ -249,6 +250,9 @@ function Index() {
 
         {/* JOURNAL */}
         <Journal />
+
+        {/* TESTIMONIALS */}
+        <Testimonials />
 
         {/* FAQ */}
         <Section className="bg-muted">
