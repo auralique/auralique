@@ -134,6 +134,23 @@ html {
   to { opacity: 1; transform: none; }
 }
 
+@keyframes marquee-left {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@utility marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee-left 60s linear infinite;
+  &:hover { animation-play-state: paused; }
+  @media (prefers-reduced-motion: reduce) { animation: none; }
+}
+
+@utility marquee-reverse {
+  animation-direction: reverse;
+}
+
 .dark {
   --background: oklch(0.129 0.042 264.695);
   --foreground: oklch(0.984 0.003 247.858);
