@@ -3,7 +3,7 @@ import { Menu, X } from "lucide-react";
 import { nav } from "@/lib/content";
 import { cn } from "@/lib/utils";
 
-export function Header() {
+export function Header({ onOpenBooking }: { onOpenBooking: () => void }) {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -35,7 +35,7 @@ export function Header() {
           </ul>
         </nav>
         <div className="flex items-center gap-3">
-          <a href="#contact" className="btn-primary hidden sm:inline-flex">Book a strategy call</a>
+          <button type="button" onClick={onOpenBooking} className="btn-primary hidden sm:inline-flex">Book a strategy call</button>
           <button
             type="button"
             className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border text-foreground lg:hidden"
@@ -56,7 +56,7 @@ export function Header() {
               </li>
             ))}
             <li className="pt-5">
-              <a href="#contact" onClick={() => setOpen(false)} className="btn-primary w-full">Book a strategy call</a>
+              <button type="button" onClick={() => { setOpen(false); onOpenBooking(); }} className="btn-primary w-full">Book a strategy call</button>
             </li>
           </ul>
         </nav>

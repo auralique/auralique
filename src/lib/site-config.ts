@@ -6,4 +6,5 @@ export const siteConfig = {
   // Integration point: set to a form endpoint (e.g. Formspree, CRM webhook)
   // to deliver enquiries. While null, submissions are validated but not sent.
   enquiryEndpoint: null as string | null,
+  calendlyUrl: "https://calendly.com/auralique",
 };

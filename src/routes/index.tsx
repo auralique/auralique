@@ -1,7 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { ArrowRight, ArrowUpRight, Plus, Mail, Instagram, Linkedin } from "lucide-react";
-import type { ReactNode } from "react";
+import { useState, type ReactNode } from "react";
 import { Header } from "@/components/site/Header";
+import { BookingModal } from "@/components/site/BookingModal";
 import { PlatformLogos } from "@/components/site/PlatformLogos";
 import { EnquiryForm } from "@/components/site/EnquiryForm";
 import { Journal } from "@/components/site/Journal";
@@ -54,9 +55,12 @@ function Heading({ label, title, text, light }: { label?: string; title: string;
 }
 
 function Index() {
+  const [bookingOpen, setBookingOpen] = useState(false);
+  const openBooking = () => setBookingOpen(true);
   return (
     <>
-      <Header />
+      <Header onOpenBooking={openBooking} />
+      <BookingModal open={bookingOpen} onClose={() => setBookingOpen(false)} />
       <main>
         {/* HERO */}
         <section id="home" className="relative overflow-hidden bg-primary px-5 pb-20 pt-20 text-primary-foreground md:px-8 md:pb-28 md:pt-28">
@@ -73,7 +77,7 @@ function Index() {
                 From brand identity and online store development to marketplace management, digital advertising and customer retention, AURALIQUE brings every part of your digital commerce growth together.
               </p>
               <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-                <a href="#contact" className="btn-inverse">Book a strategy call <ArrowRight size={16} /></a>
+                <button type="button" onClick={openBooking} className="btn-inverse">Book a strategy call <ArrowRight size={16} /></button>
                 <a href="#services" className="btn-ghost-light">Explore our services</a>
               </div>
               <p className="eyebrow mt-16 flex flex-wrap gap-x-6 gap-y-2 text-primary-foreground/70">
@@ -227,7 +231,7 @@ function Index() {
                 <ul className={cn("mt-8 flex-1 space-y-2.5 border-t pt-6 text-sm", i === 1 ? "border-primary-foreground/25" : "border-border")}>
                   {e.items.map((it) => <li key={it}>— {it}</li>)}
                 </ul>
-                <a href="#contact" className={cn("mt-10", i === 1 ? "btn-inverse" : "btn-primary")}>{e.cta} <ArrowRight size={14} /></a>
+                <button type="button" onClick={openBooking} className={cn("mt-10", i === 1 ? "btn-inverse" : "btn-primary")}>{e.cta} <ArrowRight size={14} /></button>
               </article>
             ))}
           </div>
@@ -240,7 +244,7 @@ function Index() {
             <div>
               <h3 className="display text-4xl text-primary">Our portfolio is evolving.</h3>
               <p className="mt-4 max-w-md text-muted-foreground">We are building partnerships with ambitious beauty and personal-care brands. Contact us to discuss your next project.</p>
-              <a href="#contact" className="btn-primary mt-8">Discuss your project</a>
+              <button type="button" onClick={openBooking} className="btn-primary mt-8">Discuss your project</button>
             </div>
             <ul className="flex flex-wrap content-start gap-2">
               {portfolioCategories.map((c) => <li key={c} className="rounded-full border border-border px-4 py-2 text-sm text-muted-foreground">{c}</li>)}
