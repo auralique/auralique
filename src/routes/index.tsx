@@ -6,7 +6,6 @@ import { PlatformLogos } from "@/components/site/PlatformLogos";
 import { EnquiryForm } from "@/components/site/EnquiryForm";
 import { Journal } from "@/components/site/Journal";
 import { Testimonials } from "@/components/site/Testimonials";
-import { ReviewMarquee } from "@/components/site/ReviewMarquee";
 import {
   nav, principles, platforms, industries, services, benefits, process, engagements, portfolioCategories, faqs,
 } from "@/lib/content";
@@ -254,9 +253,6 @@ function Index() {
 
         {/* TESTIMONIALS */}
         <Testimonials />
-
-        {/* AUTO-SCROLLING REVIEWS */}
-        <ReviewMarquee />
 
         {/* FAQ */}
         <Section className="bg-muted">
