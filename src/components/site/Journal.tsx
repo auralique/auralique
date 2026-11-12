@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { ArrowRight, Clock, X } from "lucide-react";
 import { journalArticles, type JournalArticle } from "@/lib/journal";
+import { trackEvent } from "@/lib/analytics";
 
 function BlogCard({ article, index, onOpen }: { article: JournalArticle; index: number; onOpen: (a: JournalArticle) => void }) {
   return (
@@ -16,15 +17,20 @@ function BlogCard({ article, index, onOpen }: { article: JournalArticle; index: 
         {article.title}
       </h3>
       <p className="mt-4 flex-1 leading-relaxed text-muted-foreground">{article.excerpt}</p>
-      <button
-        type="button"
-        onClick={() => onOpen(article)}
+      <details id={`article-${article.id}`}>
+      <summary
+        onClick={(event) => { event.preventDefault(); onOpen(article); }}
         className="eyebrow mt-8 inline-flex items-center gap-2 self-start border-t border-border pt-5 text-foreground transition-colors group-hover:text-primary"
         aria-label={`Read article: ${article.title}`}
       >
         Read Article
         <ArrowRight size={14} className="transition-transform duration-300 group-hover:translate-x-1" />
-      </button>
+      </summary>
+      <div className="mt-6 space-y-5 leading-relaxed text-muted-foreground">
+        {article.body.map((block, i) => block.type === "paragraph" ? <p key={i}>{block.text}</p> : <ul key={i} className="list-disc pl-5">{block.items.map((item) => <li key={item.text}>{item.lead && <strong>{item.lead} </strong>}{item.text}</li>)}</ul>)}
+        <p>{article.closing}</p>
+      </div>
+      </details>
     </article>
   );
 }
@@ -128,7 +134,7 @@ function BlogModal({ article, onClose }: { article: JournalArticle; onClose: () 
 
 export function Journal() {
   const [selected, setSelected] = useState<JournalArticle | null>(null);
-  const open = useCallback((a: JournalArticle) => setSelected(a), []);
+  const open = useCallback((a: JournalArticle) => { trackEvent("blog_article_open", { article_id: a.id }); setSelected(a); }, []);
   const close = useCallback(() => setSelected(null), []);
 
   return (

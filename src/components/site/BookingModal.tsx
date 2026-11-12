@@ -3,6 +3,7 @@ import { z } from "zod";
 import { X, ArrowLeft, ArrowRight, Loader2, CalendarCheck, ExternalLink } from "lucide-react";
 import { siteConfig } from "@/lib/site-config";
 import { cn } from "@/lib/utils";
+import { isConfirmedCalendlyMessage, trackEvent } from "@/lib/analytics";
 
 type Stage = "select" | "step1" | "step2" | "calendly" | "confirmed";
 
@@ -90,6 +91,7 @@ export function BookingModal({ open, onClose }: { open: boolean; onClose: () => 
   const [booking, setBooking] = useState<{ date: string; time: string; timezone: string } | null>(null);
   const dialogRef = useRef<HTMLDivElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
+  const calendlyRef = useRef<HTMLIFrameElement>(null);
 
   // Reset & focus when opened; lock body scroll
   useEffect(() => {
@@ -120,8 +122,8 @@ export function BookingModal({ open, onClose }: { open: boolean; onClose: () => 
   useEffect(() => {
     if (!open || stage !== "calendly") return;
     const onMessage = (e: MessageEvent) => {
-      if (e.origin !== "https://calendly.com") return;
-      if (e.data?.event === "calendly.event_scheduled") {
+      if (isConfirmedCalendlyMessage(e.origin, e.data, e.source === calendlyRef.current?.contentWindow)) {
+        trackEvent("calendly_booking_completed");
         const start = e.data?.payload?.event?.start_time as string | undefined;
         let date = "", time = "", timezone = "";
         if (start) {
@@ -354,6 +356,7 @@ export function BookingModal({ open, onClose }: { open: boolean; onClose: () => 
                 </div>
               ) : (
                 <iframe
+                  ref={calendlyRef}
                   src={calendlyUrl}
                   title="Calendly scheduling — book your AURALIQUE strategy call"
                   className="h-[640px] w-full border-0"

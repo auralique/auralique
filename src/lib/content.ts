@@ -38,15 +38,15 @@ export const industries = [
 export const services: { title: string; short: string; desc: string; icon: LucideIcon; items: string[] }[] = [
   { title: "E-commerce Development & Management", short: "E-commerce Development", icon: ShoppingBag, desc: "Storefronts engineered to convert — built, maintained and managed across Shopify, Amazon and Faire.",
     items: ["Shopify store design and development", "Website redesign", "Store maintenance and management", "Product uploads and catalog management", "Landing page development", "Amazon storefront management", "Amazon listing optimization", "Faire wholesale storefront setup", "E-commerce integrations"] },
-  { title: "Branding & Creative Design", short: "Branding & Creative", icon: Palette, desc: "Distinctive brand identities and creative that position you with clarity and confidence.",
+   { title: "Branding & Creative Design", short: "Branding & Creative", icon: Palette, desc: "Beauty branding strategy, visual identity and packaging design that position skincare, haircare and cosmetics brands with clarity and confidence.",
     items: ["Brand strategy", "Brand positioning", "Logo design", "Visual identity", "Brand guidelines", "Packaging design", "Graphic design", "Marketing creatives", "Creative direction", "Content production coordination"] },
   { title: "Performance Marketing & Advertising", short: "Performance Marketing", icon: Megaphone, desc: "Paid campaigns planned, launched and optimized across the channels your customers use.",
     items: ["Meta Ads management", "Facebook and Instagram advertising", "Google Ads management", "TikTok Ads management", "Amazon Ads management", "Campaign strategy", "Retargeting", "Audience development", "Advertising optimization", "Performance reporting"] },
-  { title: "Email Marketing & Customer Retention", short: "Email Marketing", icon: Mail, desc: "Lifecycle programs that turn first-time buyers into loyal, returning customers.",
+   { title: "Email Marketing & Customer Retention", short: "Email Marketing", icon: Mail, desc: "Email marketing for beauty brands, Klaviyo automation and lifecycle programs built around customer retention and repeat purchases.",
     items: ["Klaviyo setup and management", "Email marketing strategy", "Email campaign management", "Welcome automation", "Abandoned cart automation", "Post-purchase automation", "Customer segmentation", "Replenishment campaigns", "Win-back campaigns", "SMS marketing"] },
   { title: "Growth Strategy & Conversion Optimization", short: "Growth & CRO", icon: LineChart, desc: "Data-led improvements across the customer journey, from first visit to checkout.",
     items: ["Conversion rate optimization", "Customer journey optimization", "Product page optimization", "Checkout optimization", "A/B testing", "Google Analytics 4", "Marketing analytics", "Growth strategy", "Performance dashboards", "Sales funnel optimization"] },
-  { title: "Google Presence & Digital Visibility", short: "Google Visibility", icon: Search, desc: "Be found where customers search — organic, shopping and local visibility, managed.",
+   { title: "Google Presence & Digital Visibility", short: "Google Visibility", icon: Search, desc: "Ecommerce SEO, Shopify search optimization and Google Shopping management — with local visibility where your business is eligible.",
     items: ["Google Search optimization", "Search engine optimization", "Google Business Profile management where eligible", "Google Merchant Center", "Product feed optimization", "Google Search Console", "Local SEO where applicable", "Online reputation management", "Search visibility strategy"] },
 ];
 

@@ -8,3 +8,7 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+- Keep the single-page navigation and Journal modal experience; crawlable article bodies live in native closed details on their existing cards to preserve the layout without hidden SEO-only text.
+- Derive sitemap URLs from explicit required route sitemap decisions with the versioned helper; omit lastmod without an authoritative page-specific timestamp.
+- Keep accurate public schema in the SEO module, excluding unverified contacts, locations, reviews and ratings; analytics receives only predefined non-identifying event labels.

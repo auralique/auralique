@@ -4,6 +4,7 @@ import { CheckCircle2, AlertCircle, Loader2 } from "lucide-react";
 import { formOptions } from "@/lib/content";
 import { siteConfig } from "@/lib/site-config";
 import { cn } from "@/lib/utils";
+import { trackEvent } from "@/lib/analytics";
 
 const schema = z.object({
   name: z.string().trim().min(2, "Please enter your full name").max(100),
@@ -49,6 +50,7 @@ export function EnquiryForm() {
   const [services, setServices] = useState<string[]>([]);
   const [errors, setErrors] = useState<Errors>({});
   const [status, setStatus] = useState<Status>("idle");
+  const [started, setStarted] = useState(false);
 
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -74,6 +76,7 @@ export function EnquiryForm() {
         body: JSON.stringify(parsed.data),
       });
       setStatus(res.ok ? "sent" : "error");
+      if (res.ok) trackEvent("contact_form_submit");
     } catch {
       setStatus("error");
     }
@@ -94,7 +97,7 @@ export function EnquiryForm() {
   }
 
   return (
-    <form onSubmit={onSubmit} noValidate className="grid gap-6 sm:grid-cols-2">
+    <form onSubmit={onSubmit} onFocus={() => { if (!started) { setStarted(true); trackEvent("contact_form_start"); } }} noValidate className="grid gap-6 sm:grid-cols-2">
       <div><label htmlFor="name" className={label}>Full name</label><input id="name" name="name" className={field} autoComplete="name" />{err("name")}</div>
       <div><label htmlFor="email" className={label}>Business email</label><input id="email" name="email" type="email" className={field} autoComplete="email" />{err("email")}</div>
       <div><label htmlFor="brand" className={label}>Brand name</label><input id="brand" name="brand" className={field} />{err("brand")}</div>

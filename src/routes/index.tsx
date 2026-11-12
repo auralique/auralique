@@ -13,12 +13,14 @@ import {
 import { siteConfig } from "@/lib/site-config";
 import { cn } from "@/lib/utils";
 import heroMotionVideo from "@/assets/videos/hero_beauty_motion.mp4.asset.json";
+import { homepageTitle, homepageDescription, siteOrigin, structuredData } from "@/lib/seo";
+import { trackEvent } from "@/lib/analytics";
 
-const title = "AURALIQUE — E-commerce Growth Agency for Beauty Brands";
-const description =
-  "AURALIQUE builds, manages and grows skincare, haircare, cosmetics and personal-care brands across Shopify, Amazon, Faire, Google, Meta, TikTok and Klaviyo.";
+const title = homepageTitle;
+const description = homepageDescription;
 
 export const Route = createFileRoute("/")({
+  staticData: { sitemap: true },
   head: () => ({
     meta: [
       { title },
@@ -26,8 +28,11 @@ export const Route = createFileRoute("/")({
       { property: "og:title", content: title },
       { property: "og:description", content: description },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: `${siteOrigin}/` },
       { name: "twitter:card", content: "summary_large_image" },
     ],
+    links: [{ rel: "canonical", href: `${siteOrigin}/` }],
+    scripts: [{ type: "application/ld+json", children: JSON.stringify(structuredData) }],
   }),
   component: Index,
 });
@@ -56,7 +61,7 @@ function Heading({ label, title, text, light }: { label?: string; title: string;
 
 function Index() {
   const [bookingOpen, setBookingOpen] = useState(false);
-  const openBooking = () => setBookingOpen(true);
+  const openBooking = () => { trackEvent("strategy_call_click"); setBookingOpen(true); };
   return (
     <>
       <Header onOpenBooking={openBooking} />
@@ -71,14 +76,14 @@ function Index() {
                 We build.<br />We manage.<br /><em className="text-secondary">We grow.</em>
               </h1>
               <p className="display mt-10 text-2xl leading-snug md:text-3xl">
-                Your complete e-commerce growth partner for ambitious skincare, haircare, cosmetics and personal-care brands.
+                Your beauty ecommerce agency and growth partner for ambitious skincare, haircare, cosmetics and personal-care brands.
               </p>
               <p className="mt-6 max-w-xl leading-relaxed text-primary-foreground/85">
-                From brand identity and online store development to marketplace management, digital advertising and customer retention, AURALIQUE brings every part of your digital commerce growth together.
+                From beauty brand identity and Shopify store development to Amazon and Faire marketplace management, digital advertising and customer retention, AURALIQUE brings every part of your digital commerce growth together for brands internationally.
               </p>
               <div className="mt-9 flex flex-col gap-3 sm:flex-row">
                 <button type="button" onClick={openBooking} className="btn-inverse">Book a strategy call <ArrowRight size={16} /></button>
-                <a href="#services" className="btn-ghost-light">Explore our services</a>
+                <a href="#services" onClick={() => trackEvent("service_section_click")} className="btn-ghost-light">Explore our services</a>
               </div>
               <p className="eyebrow mt-16 flex flex-wrap gap-x-6 gap-y-2 text-primary-foreground/70">
                 {["Strategy", "Commerce", "Creative", "Performance"].map((w, i) => (
@@ -128,7 +133,7 @@ function Index() {
 
         {/* PLATFORMS */}
         <Section id="platforms">
-          <Heading label="Platforms" title="One partner. Every growth channel." text="We help brands establish, manage and grow their presence across leading e-commerce platforms and digital marketing channels." />
+          <Heading label="Platforms" title="One partner. Every growth channel." text="Shopify store management, Amazon marketplace management and Faire wholesale support — coordinated with the advertising, email and analytics channels your beauty brand needs." />
           <div className="grid gap-px overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-2 lg:grid-cols-4">
             {platforms.map((p) => (
               <article key={p.name} className="group bg-background p-8 transition-colors hover:bg-muted">
@@ -204,7 +209,7 @@ function Index() {
 
         {/* PROCESS */}
         <Section id="process">
-          <Heading label="Our process" title="A clear process. A stronger growth journey." />
+          <Heading label="Our process" title="A clear process. A stronger growth journey." text="Our ecommerce growth strategy connects discovery, channel planning, implementation and ongoing optimization around your brand's priorities." />
           <ol className="relative grid gap-0 lg:grid-cols-5 lg:gap-6">
             <span aria-hidden className="absolute left-[1.15rem] top-0 h-full w-px bg-border lg:left-0 lg:top-[1.15rem] lg:h-px lg:w-full" />
             {process.map(([t, d], i) => (
@@ -221,7 +226,7 @@ function Index() {
 
         {/* ENGAGEMENTS */}
         <Section className="bg-secondary">
-          <Heading label="Engagement models" title="Solutions designed around your growth stage." text="Every engagement is customized to your brand, channels and objectives." />
+          <Heading label="Engagement models" title="Solutions designed around your growth stage." text="Ecommerce management services tailored to your brand, channels and objectives — from launch foundations to ongoing multichannel growth." />
           <div className="grid gap-5 lg:grid-cols-3">
             {engagements.map((e, i) => (
               <article key={e.title} className={cn("flex flex-col rounded-2xl p-9 transition-transform duration-300 hover:-translate-y-1", i === 1 ? "bg-primary text-primary-foreground" : "bg-background")}>
