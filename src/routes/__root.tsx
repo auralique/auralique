@@ -12,6 +12,8 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import { Measurement } from "@/components/site/Measurement";
+import { measurementConfig } from "@/lib/measurement-config";
 
 function NotFoundComponent() {
   return (
@@ -83,6 +85,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:type", content: "website" },
       { property: "og:site_name", content: "AURALIQUE" },
       { name: "twitter:card", content: "summary_large_image" },
+      ...(measurementConfig.searchConsoleVerification ? [{ name: "google-site-verification", content: measurementConfig.searchConsoleVerification }] : []),
     ],
     links: [
       {
@@ -123,6 +126,7 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
+      <Measurement />
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <Outlet />
     </QueryClientProvider>
