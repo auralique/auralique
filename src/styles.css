@@ -233,3 +233,89 @@ html {
   html { scroll-behavior: auto; }
   .fade-up { animation: none; }
 }
+
+/* Mobile-only refinements preserve the approved desktop composition. */
+@media (width < 1024px) {
+  main section { padding-block: 3.5rem; }
+  main section > div { min-width: 0; }
+  main section .mb-14 { margin-bottom: 2rem; }
+  main section .md\:mb-20 { margin-bottom: 2rem; }
+  main h2 { font-size: 2.25rem; line-height: 1.12; }
+  main h3 { overflow-wrap: anywhere; }
+  #home { padding-top: 2.5rem; padding-bottom: 3rem; }
+  #home > div { gap: 2rem; }
+  #home h1 { font-size: 3.5rem; }
+  #home .mb-8 { margin-bottom: 1.25rem; }
+  #home .mt-10 { margin-top: 1.5rem; font-size: 1.25rem; }
+  #home .mt-6 { margin-top: 1rem; }
+  #home .mt-9 { margin-top: 1.5rem; }
+  #home .mt-16 { margin-top: 2rem; gap: 1rem; }
+  #home .mt-16 span { gap: 1rem; }
+  #home figure { max-width: 28rem; margin-inline: auto; }
+  main article.p-8, main article.p-9, main article.md\:p-10 { padding: 1.5rem; }
+  main article .mt-10, main article .mt-8 { margin-top: 1.5rem; }
+  #services article h3 { font-size: 1.5rem; line-height: 1.2; }
+  main .p-10.md\:p-14 { padding: 1.5rem; }
+  #contact h2 { font-size: 2.5rem; }
+  #contact .gap-14 { gap: 2rem; }
+  #reviews .mb-14 { margin-bottom: 2rem; }
+  footer > .grid { gap: 2rem; }
+  footer a { display: inline-flex; align-items: center; min-height: 2.75rem; overflow-wrap: anywhere; }
+  footer ul { gap: 0; }
+  footer .mt-14 { margin-top: 2rem; }
+  .mobile-dialog { height: 100dvh; max-height: 100dvh; border-radius: 0; }
+  .booking-panel { display: flex; flex-direction: column; overflow: hidden; }
+  .booking-scroll { flex: 1; min-height: 0; overflow-y: auto; overscroll-behavior: contain; }
+  .booking-scroll > div, .booking-scroll > form { padding: 4.5rem 1.25rem 1.5rem; }
+  .booking-scroll h2 { font-size: 1.75rem; line-height: 1.15; }
+  .booking-scroll .p-8 { padding: 1.25rem; }
+  .booking-scroll .mt-10 { margin-top: 1.75rem; }
+  .booking-scroll .mt-8 { margin-top: 1.5rem; }
+  .booking-scroll .btn-primary { width: 100%; }
+  .booking-scroll .mt-10.flex { display: grid; grid-template-columns: 1fr; gap: 1rem; }
+  .booking-scroll .mt-10.flex > button[type="submit"] { grid-row: 1; }
+  .booking-scroll .eyebrow.inline-flex { min-height: 2.75rem; }
+  .booking-calendar { padding-inline: 0 !important; }
+  .booking-calendar > h2, .booking-calendar > p, .booking-calendar > .mt-6 { margin-inline: 1.25rem; }
+  .booking-calendar .calendar-frame { border-inline: 0; border-radius: 0; }
+  .booking-calendar iframe { height: 780px; }
+}
+
+@media (width < 768px) {
+  main section { padding-inline: 1.25rem; }
+  main .text-lg { font-size: 1rem; line-height: 1.65; }
+  main article .text-sm { font-size: .9375rem; }
+  #home .btn-inverse, #home .btn-ghost-light { width: 100%; }
+  #home .sm\:flex-row { flex-direction: column; }
+  main .btn-primary, main .btn-inverse, main .btn-ghost-light { min-height: 2.75rem; white-space: normal; text-align: center; letter-spacing: .12em; }
+  main article .btn-primary, main article .btn-inverse { width: 100%; }
+  #contact form { grid-template-columns: minmax(0, 1fr); }
+  #contact form > div { grid-column: 1; min-width: 0; }
+  main input, main select, main textarea, .booking-panel input, .booking-panel select, .booking-panel textarea { font-size: 1rem; min-height: 3rem; min-width: 0; max-width: 100%; }
+  #contact [role="group"] button, .booking-panel [role="group"] button { min-height: 2.75rem; max-width: 100%; white-space: normal; text-align: left; }
+  #contact a { min-height: 2.75rem; overflow-wrap: anywhere; }
+  main details summary { min-height: 2.75rem; font-size: 1rem; }
+  main details summary svg { flex-shrink: 0; }
+  .journal-card { cursor: pointer; }
+  .journal-card > div:first-child { display: grid; grid-template-columns: minmax(0, 1fr) auto; }
+  .journal-card > div:first-child > span { min-width: 0; }
+  .article-scroll { padding: 1.5rem; overscroll-behavior: contain; }
+  .article-scroll h2 { font-size: 1.75rem; }
+  .article-scroll ul { padding: 1rem; }
+  .article-scroll .my-8 { margin-block: 1.5rem; }
+  footer { padding-block: 2.5rem; }
+  footer > .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  footer > .grid > :first-child { grid-column: 1 / -1; }
+  footer > .grid > div, footer > .grid > nav { min-width: 0; }
+}
+
+@media (width < 360px) {
+  main h2 { font-size: 2rem; }
+  #home h1 { font-size: 3rem; }
+  #home .eyebrow { font-size: .65rem; }
+  main article.p-8, main article.p-9 { padding: 1.25rem; }
+}
+
+@layer base {
+  :where(a, button, summary, input, select, textarea):focus-visible { outline: 2px solid var(--ring); outline-offset: 4px; }
+}

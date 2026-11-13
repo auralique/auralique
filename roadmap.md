@@ -7,3 +7,9 @@
 - [x] Deliver final audit with external configuration requirements.
 
 External setup is documented in the audit: account IDs/consent, Search Console access, enquiry delivery, official business details and publishing.
+
+# Mobile optimisation
+- [ ] Compact mobile sections, hero, cards and touch targets while preserving desktop and SEO.
+- [ ] Improve menu and modal focus, scroll locking and booking layout.
+- [ ] Make Journal cards tappable and mobile reviews expandable to all 20.
+- [ ] Verify all nine widths and mobile visitor flow; document external limitations.
