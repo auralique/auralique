@@ -38,16 +38,16 @@ export function Header({ onOpenBooking }: { onOpenBooking: () => void }) {
           AURALIQUE
         </a>
         <nav aria-label="Primary" className="hidden lg:block">
-          <ul className="flex items-center gap-8">
+          <ul className="flex items-center gap-5 xl:gap-8">
             {nav.map((n) => (
               <li key={n.href}>
-                <a href={n.href} className="text-sm font-medium text-foreground/80 transition-colors hover:text-primary">{n.label}</a>
+                <a href={n.href} className="whitespace-nowrap text-sm font-medium text-foreground/80 transition-colors hover:text-primary">{n.label}</a>
               </li>
             ))}
           </ul>
         </nav>
         <div className="flex items-center gap-3">
-          <button type="button" onClick={onOpenBooking} className="btn-primary hidden sm:inline-flex">Book a strategy call</button>
+          <button type="button" onClick={onOpenBooking} className="btn-primary hidden whitespace-nowrap sm:inline-flex">Book a strategy call</button>
           <Button variant="outline" size="icon"
             type="button"
             className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-border text-foreground lg:hidden"
