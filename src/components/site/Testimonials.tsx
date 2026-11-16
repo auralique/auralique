@@ -4,21 +4,21 @@ import { cn } from "@/lib/utils";
 
 function MarqueeCard({ t }: { t: Testimonial }) {
   return (
-    <article className="flex w-80 shrink-0 flex-col rounded-2xl border border-border bg-background p-6">
+    <article className="flex w-80 shrink-0 flex-col rounded-2xl border border-border bg-background p-6 max-md:w-64 max-md:p-4">
       <div className="flex gap-0.5 text-primary" aria-hidden>
         {Array.from({ length: 5 }).map((_, i) => (
           <Star key={i} size={12} fill="currentColor" strokeWidth={0} />
         ))}
       </div>
-      <p className="mt-4 line-clamp-3 flex-1 text-sm leading-relaxed text-foreground/85">“{t.text}”</p>
-      <div className="mt-5 flex items-center gap-3 border-t border-border pt-4">
+      <p className="mt-4 line-clamp-3 flex-1 text-sm leading-relaxed text-foreground/85 max-md:mt-3">“{t.text}”</p>
+      <div className="mt-5 flex items-center gap-3 border-t border-border pt-4 max-md:mt-3 max-md:gap-2 max-md:pt-3">
         <img
           src={t.portrait}
           alt={t.alt}
           width={40}
           height={40}
           loading="lazy"
-          className="h-10 w-10 shrink-0 rounded-full border border-border object-cover grayscale"
+          className="h-10 w-10 shrink-0 rounded-full border border-border object-cover grayscale max-md:h-8 max-md:w-8"
         />
         <div className="min-w-0">
           <p className="display truncate text-base leading-tight">{t.name}</p>
