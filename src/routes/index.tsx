@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { ArrowRight, ArrowUpRight, Plus, Mail, Instagram, Linkedin } from "lucide-react";
-import { useState, type ReactNode } from "react";
+import { useCallback, useState, type ReactNode } from "react";
 import { Header } from "@/components/site/Header";
 import { BookingModal } from "@/components/site/BookingModal";
 import { PlatformLogos } from "@/components/site/PlatformLogos";
@@ -61,7 +61,7 @@ function Heading({ label, title, text, light }: { label?: string; title: string;
 
 function Index() {
   const [bookingOpen, setBookingOpen] = useState(false);
-  const openBooking = () => { trackEvent("strategy_call_click"); setBookingOpen(true); };
+  const openBooking = useCallback(() => { trackEvent("strategy_call_click"); setBookingOpen(true); }, []);
   return (
     <>
       <Header onOpenBooking={openBooking} />

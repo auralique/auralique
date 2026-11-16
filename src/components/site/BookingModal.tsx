@@ -4,6 +4,8 @@ import { X, ArrowLeft, ArrowRight, Loader2, CalendarCheck, ExternalLink } from "
 import { siteConfig } from "@/lib/site-config";
 import { cn } from "@/lib/utils";
 import { isConfirmedCalendlyMessage, trackEvent } from "@/lib/analytics";
+import { useDialogFocus } from "@/hooks/use-dialog-focus";
+import { Button } from "@/components/ui/button";
 
 type Stage = "select" | "step1" | "step2" | "calendly" | "confirmed";
 
@@ -92,6 +94,7 @@ export function BookingModal({ open, onClose }: { open: boolean; onClose: () => 
   const dialogRef = useRef<HTMLDivElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
   const calendlyRef = useRef<HTMLIFrameElement>(null);
+  useDialogFocus(open, dialogRef, onClose);
 
   // Reset & focus when opened; lock body scroll
   useEffect(() => {
@@ -100,23 +103,17 @@ export function BookingModal({ open, onClose }: { open: boolean; onClose: () => 
     setErrors({});
     setCalendlyState("loading");
     setBooking(null);
-    document.body.style.overflow = "hidden";
     const t = setTimeout(() => closeRef.current?.focus(), 50);
     return () => {
-      document.body.style.overflow = "";
       clearTimeout(t);
     };
   }, [open]);
 
-  // Escape to close
+  // Keep new steps visible when returning from a long form or calendar.
   useEffect(() => {
     if (!open) return;
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
-    };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [open, onClose]);
+    dialogRef.current?.querySelector(".booking-scroll")?.scrollTo(0, 0);
+  }, [open, stage]);
 
   // Listen for Calendly booking confirmation
   useEffect(() => {
@@ -191,7 +188,7 @@ export function BookingModal({ open, onClose }: { open: boolean; onClose: () => 
 
   return (
     <div
-      className="fixed inset-0 z-[100] flex items-center justify-center bg-plum/60 p-4 backdrop-blur-sm"
+      className="fixed inset-0 z-[100] flex items-center justify-center bg-plum/60 backdrop-blur-sm lg:p-4"
       role="dialog"
       aria-modal="true"
       aria-label="Book a strategy call"
@@ -200,19 +197,21 @@ export function BookingModal({ open, onClose }: { open: boolean; onClose: () => 
       <div
         ref={dialogRef}
         className={cn(
-          "relative max-h-[92vh] w-full overflow-y-auto rounded-2xl bg-background shadow-2xl",
+          "mobile-dialog booking-panel relative max-h-[92vh] w-full overflow-y-auto rounded-2xl bg-background shadow-2xl",
           stage === "calendly" ? "max-w-4xl" : "max-w-2xl",
         )}
       >
-        <button
+        <Button variant="outline" size="icon"
           ref={closeRef}
           type="button"
           onClick={onClose}
           aria-label="Close booking"
-          className="absolute right-4 top-4 z-10 inline-flex h-10 w-10 items-center justify-center rounded-full border border-border bg-background text-foreground transition-colors hover:border-primary hover:text-primary"
+          className="absolute right-4 top-4 z-10 inline-flex h-11 w-11 items-center justify-center rounded-full border border-border bg-background text-foreground transition-colors hover:border-primary hover:text-primary"
         >
           <X size={18} />
-        </button>
+        </Button>
+
+        <div className="booking-scroll">
 
         {/* STAGE: SELECT */}
         {stage === "select" && (
@@ -257,7 +256,7 @@ export function BookingModal({ open, onClose }: { open: boolean; onClose: () => 
               </div>
               <div>
                 <label htmlFor="bk-website" className={label}>Website URL (optional)</label>
-                <input id="bk-website" name="website" defaultValue={enquiry.website} placeholder="yourbrand.com" className={field} />
+                <input id="bk-website" name="website" inputMode="url" autoCapitalize="none" defaultValue={enquiry.website} placeholder="yourbrand.com" className={field} />
                 {err("website")}
               </div>
             </div>
@@ -337,10 +336,10 @@ export function BookingModal({ open, onClose }: { open: boolean; onClose: () => 
 
         {/* STAGE: CALENDLY */}
         {stage === "calendly" && (
-          <div className="p-6 md:p-10">
+          <div className="booking-calendar p-6 md:p-10">
             <h2 className="display pr-10 text-3xl md:text-4xl">Schedule Your Strategy Call</h2>
             <p className="mt-3 text-muted-foreground">You're one step closer to building something great. Choose a convenient date and time for your conversation with AURALIQUE.</p>
-            <div className="relative mt-8 min-h-[560px] overflow-hidden rounded-2xl border border-border">
+            <div className="calendar-frame relative mt-8 min-h-[560px] overflow-hidden rounded-2xl border border-border">
               {calendlyState === "loading" && (
                 <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 text-muted-foreground" role="status">
                   <Loader2 className="animate-spin text-primary" size={28} />
@@ -394,6 +393,7 @@ export function BookingModal({ open, onClose }: { open: boolean; onClose: () => 
             <button type="button" onClick={onClose} className="btn-primary mt-10">Back to website</button>
           </div>
         )}
+        </div>
       </div>
     </div>
   );

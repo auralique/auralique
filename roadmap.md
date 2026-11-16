@@ -9,7 +9,9 @@
 External setup is documented in the audit: account IDs/consent, Search Console access, enquiry delivery, official business details and publishing.
 
 # Mobile optimisation
-- [ ] Compact mobile sections, hero, cards and touch targets while preserving desktop and SEO.
-- [ ] Improve menu and modal focus, scroll locking and booking layout.
-- [ ] Make Journal cards tappable and mobile reviews expandable to all 20.
-- [ ] Verify all nine widths and mobile visitor flow; document external limitations.
+- [x] Compact mobile sections, hero, cards and touch targets while preserving desktop and SEO.
+- [x] Improve menu and modal focus, scroll locking and booking layout.
+- [x] Make Journal cards tappable and mobile reviews expandable to all 20.
+- [x] Verify all nine widths and mobile visitor flow; document external limitations.
+
+Mobile verification: no page overflow at 320, 360, 375, 390, 414, 430, 768, 1024 and 1440px; eight tests pass. Calendly date selection reveals available times at 320px without frame overflow. No real appointment submitted. Enquiry delivery remains unconnected; analytics IDs/consent and Search Console remain external setup. No field Core Web Vitals verdict claimed.

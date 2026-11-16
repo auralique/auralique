@@ -1,6 +1,8 @@
 import { Star } from "lucide-react";
 import { testimonials, type Testimonial } from "@/lib/testimonials";
 import { cn } from "@/lib/utils";
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
 
 function MarqueeCard({ t }: { t: Testimonial }) {
   return (
@@ -43,6 +45,7 @@ function MarqueeRow({ items, reverse }: { items: Testimonial[]; reverse?: boolea
 }
 
 export function Testimonials() {
+  const [expanded, setExpanded] = useState(false);
   const topRow = testimonials.slice(0, 10);
   const bottomRow = testimonials.slice(10);
 
@@ -61,8 +64,25 @@ export function Testimonials() {
         </div>
       </div>
       <div className="space-y-5 overflow-hidden">
+        <div className="hidden lg:block space-y-5">
         <MarqueeRow items={topRow} />
         <MarqueeRow items={bottomRow} reverse />
+        </div>
+        <div className="mx-auto max-w-2xl space-y-5 lg:hidden">
+          <p className="text-sm text-muted-foreground">Illustrative sample experiences — not verified client reviews.</p>
+          <div id="mobile-reviews" className="grid gap-5">
+            {(expanded ? testimonials : testimonials.slice(0, 6)).map((t) => (
+              <article key={t.name} className="rounded-2xl border border-border bg-background p-6">
+                <p className="leading-relaxed text-foreground/85">“{t.text}”</p>
+                <div className="mt-5 grid grid-cols-[auto_minmax(0,1fr)] items-center gap-3 border-t border-border pt-4">
+                  <img src={t.portrait} alt={t.alt} width={40} height={40} loading="lazy" className="h-10 w-10 shrink-0 rounded-full object-cover grayscale" />
+                  <div className="min-w-0"><p className="display text-lg">{t.name}</p><p className="text-sm text-muted-foreground">{t.country}</p><p className="mt-1 text-sm text-primary">{t.service}</p></div>
+                </div>
+              </article>
+            ))}
+          </div>
+          <Button variant="outline" onClick={() => setExpanded((value) => !value)} aria-expanded={expanded} aria-controls="mobile-reviews" className="h-auto min-h-11 w-full rounded-full py-3">{expanded ? "SHOW LESS" : "VIEW ALL REVIEWS"}</Button>
+        </div>
       </div>
     </section>
   );

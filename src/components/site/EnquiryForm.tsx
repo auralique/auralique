@@ -98,27 +98,27 @@ export function EnquiryForm() {
 
   return (
     <form onSubmit={onSubmit} onFocus={() => { if (!started) { setStarted(true); trackEvent("contact_form_start"); } }} noValidate className="grid gap-6 sm:grid-cols-2">
-      <div><label htmlFor="name" className={label}>Full name</label><input id="name" name="name" className={field} autoComplete="name" />{err("name")}</div>
-      <div><label htmlFor="email" className={label}>Business email</label><input id="email" name="email" type="email" className={field} autoComplete="email" />{err("email")}</div>
-      <div><label htmlFor="brand" className={label}>Brand name</label><input id="brand" name="brand" className={field} />{err("brand")}</div>
-      <div><label htmlFor="website" className={label}>Website URL</label><input id="website" name="website" placeholder="yourbrand.com" className={field} />{err("website")}</div>
+      <div><label htmlFor="name" className={label}>Full name *</label><input id="name" name="name" required className={field} autoComplete="name" />{err("name")}</div>
+      <div><label htmlFor="email" className={label}>Business email *</label><input id="email" name="email" required type="email" className={field} autoComplete="email" />{err("email")}</div>
+      <div><label htmlFor="brand" className={label}>Brand name *</label><input id="brand" name="brand" required className={field} />{err("brand")}</div>
+      <div><label htmlFor="website" className={label}>Website URL (optional)</label><input id="website" name="website" inputMode="url" autoCapitalize="none" placeholder="yourbrand.com" className={field} />{err("website")}</div>
       <div>
-        <label htmlFor="industry" className={label}>Industry</label>
+        <label htmlFor="industry" className={label}>Industry *</label>
         <select id="industry" name="industry" defaultValue="" className={cn(field, "[&>option]:text-foreground")}>
           <option value="" disabled>Select industry</option>
           {formOptions.industries.map((o) => <option key={o}>{o}</option>)}
         </select>{err("industry")}
       </div>
       <div>
-        <label htmlFor="budget" className={label}>Monthly marketing budget</label>
+        <label htmlFor="budget" className={label}>Monthly marketing budget *</label>
         <select id="budget" name="budget" defaultValue="" className={cn(field, "[&>option]:text-foreground")}>
           <option value="" disabled>Select range</option>
           {formOptions.budgets.map((o) => <option key={o}>{o}</option>)}
         </select>{err("budget")}
       </div>
-      <div className="sm:col-span-2"><span id="platforms-label" className={label}>Current platforms</span><Chips name="platforms" options={formOptions.platforms} value={platforms} onChange={setPlatforms} />{err("platforms")}</div>
-      <div className="sm:col-span-2"><span id="services-label" className={label}>Services required</span><Chips name="services" options={formOptions.services} value={services} onChange={setServices} />{err("services")}</div>
-      <div className="sm:col-span-2"><label htmlFor="message" className={label}>Message / business objectives</label><textarea id="message" name="message" rows={5} className={field} />{err("message")}</div>
+      <div className="sm:col-span-2"><span id="platforms-label" className={label}>Current platforms *</span><Chips name="platforms" options={formOptions.platforms} value={platforms} onChange={setPlatforms} />{err("platforms")}</div>
+      <div className="sm:col-span-2"><span id="services-label" className={label}>Services required *</span><Chips name="services" options={formOptions.services} value={services} onChange={setServices} />{err("services")}</div>
+      <div className="sm:col-span-2"><label htmlFor="message" className={label}>Message / business objectives *</label><textarea id="message" name="message" rows={5} required className={field} />{err("message")}</div>
       <div className="flex flex-col gap-4 sm:col-span-2">
         <button type="submit" disabled={status === "sending"} className="btn-inverse w-full sm:w-auto sm:self-start">
           {status === "sending" && <Loader2 className="animate-spin" size={16} />} Send your enquiry

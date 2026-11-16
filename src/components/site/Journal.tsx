@@ -1,11 +1,13 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import { ArrowRight, Clock, X } from "lucide-react";
 import { journalArticles, type JournalArticle } from "@/lib/journal";
 import { trackEvent } from "@/lib/analytics";
+import { useDialogFocus } from "@/hooks/use-dialog-focus";
+import { Button } from "@/components/ui/button";
 
 function BlogCard({ article, index, onOpen }: { article: JournalArticle; index: number; onOpen: (a: JournalArticle) => void }) {
   return (
-    <article className="group flex flex-col rounded-2xl border border-border bg-background p-8 transition-all duration-300 hover:-translate-y-1 hover:border-primary hover:shadow-lg hover:shadow-primary/10 md:p-10">
+    <article onClick={(event) => { if (window.innerWidth < 768 && !(event.target as HTMLElement).closest('summary, a, button')) onOpen(article); }} className="journal-card group flex flex-col rounded-2xl border border-border bg-background p-8 transition-all duration-300 hover:-translate-y-1 hover:border-primary hover:shadow-lg hover:shadow-primary/10 md:p-10">
       <div className="flex items-center justify-between gap-4">
         <span className="eyebrow text-primary">{article.category}</span>
         <span className="flex items-center gap-1.5 text-xs text-muted-foreground">
@@ -38,40 +40,11 @@ function BlogCard({ article, index, onOpen }: { article: JournalArticle; index: 
 function BlogModal({ article, onClose }: { article: JournalArticle; onClose: () => void }) {
   const panelRef = useRef<HTMLDivElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
-
-  useEffect(() => {
-    const prevOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    closeRef.current?.focus();
-
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
-      if (e.key === "Tab" && panelRef.current) {
-        const focusables = panelRef.current.querySelectorAll<HTMLElement>(
-          'button, a[href], [tabindex]:not([tabindex="-1"])'
-        );
-        const first = focusables[0];
-        const last = focusables[focusables.length - 1];
-        if (!first || !last) return;
-        if (e.shiftKey && document.activeElement === first) {
-          e.preventDefault();
-          last.focus();
-        } else if (!e.shiftKey && document.activeElement === last) {
-          e.preventDefault();
-          first.focus();
-        }
-      }
-    };
-    document.addEventListener("keydown", onKey);
-    return () => {
-      document.body.style.overflow = prevOverflow;
-      document.removeEventListener("keydown", onKey);
-    };
-  }, [onClose]);
+  useDialogFocus(true, panelRef, onClose);
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-end justify-center bg-plum/60 backdrop-blur-sm sm:items-center sm:p-6"
+      className="fixed inset-0 z-[100] flex items-end justify-center bg-plum/60 backdrop-blur-sm lg:items-center lg:p-6"
       onClick={onClose}
       role="presentation"
     >
@@ -81,7 +54,7 @@ function BlogModal({ article, onClose }: { article: JournalArticle; onClose: () 
         aria-modal="true"
         aria-label={article.title}
         onClick={(e) => e.stopPropagation()}
-        className="flex max-h-[92vh] w-full max-w-[850px] flex-col overflow-hidden rounded-t-3xl bg-muted shadow-2xl sm:rounded-3xl"
+        className="mobile-dialog flex max-h-[92vh] w-full max-w-[850px] flex-col overflow-hidden rounded-t-3xl bg-muted shadow-2xl sm:rounded-3xl"
       >
         <div className="flex items-start justify-between gap-6 border-b border-border px-6 pb-6 pt-7 md:px-12 md:pt-10">
           <div>
@@ -90,18 +63,18 @@ function BlogModal({ article, onClose }: { article: JournalArticle; onClose: () 
               <Clock size={13} aria-hidden /> {article.readingTime}
             </p>
           </div>
-          <button
+          <Button variant="outline" size="icon"
             ref={closeRef}
             type="button"
             onClick={onClose}
             aria-label="Close article"
-            className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-border bg-background text-foreground transition-colors hover:bg-primary hover:text-primary-foreground"
+            className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-border bg-background text-foreground transition-colors hover:bg-primary hover:text-primary-foreground"
           >
             <X size={18} />
-          </button>
+          </Button>
         </div>
 
-        <div className="overflow-y-auto px-6 py-8 md:px-12 md:py-10">
+        <div className="article-scroll min-h-0 overflow-y-auto px-6 py-8 md:px-12 md:py-10">
           <h2 className="display text-3xl leading-tight text-plum md:text-4xl">{article.title}</h2>
           <div className="my-8 h-px bg-border" aria-hidden />
           <div className="space-y-5 text-[1.05rem] leading-relaxed text-foreground/85">
