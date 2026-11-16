@@ -53,7 +53,7 @@ function ServiceDetailModal({ service, detail, onClose, onBook }: { service: Ser
   return (
     <div className="fixed inset-0 z-[100] flex items-end justify-center bg-plum/60 backdrop-blur-sm sm:items-center sm:p-6" onClick={onClose} role="presentation">
       <div ref={panel} role="dialog" aria-modal="true" aria-labelledby="service-modal-title" onClick={(e) => e.stopPropagation()}
-        className="mobile-dialog flex h-[100dvh] w-full max-w-[920px] flex-col overflow-hidden bg-muted shadow-2xl sm:h-auto sm:max-h-[92vh] sm:rounded-3xl">
+        className="flex h-[94dvh] w-full max-w-[920px] flex-col overflow-hidden rounded-t-3xl bg-muted shadow-2xl sm:h-auto sm:max-h-[92vh] sm:rounded-3xl">
         <div className="flex items-center justify-between gap-6 border-b border-border px-6 py-5 md:px-12">
           <p className="eyebrow text-primary">{detail.category}</p>
           <button type="button" onClick={onClose} aria-label="Close service details" className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-border bg-background transition-colors hover:bg-primary hover:text-primary-foreground"><X size={18} /></button>
