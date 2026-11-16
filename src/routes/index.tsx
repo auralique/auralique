@@ -7,6 +7,7 @@ import { PlatformLogos } from "@/components/site/PlatformLogos";
 import { EnquiryForm } from "@/components/site/EnquiryForm";
 import { Journal } from "@/components/site/Journal";
 import { SelectedWork } from "@/components/site/SelectedWork";
+import { ServicesGrid } from "@/components/site/ServicesSection";
 import { Testimonials } from "@/components/site/Testimonials";
 import {
   nav, principles, platforms, industries, services, benefits, process, engagements, faqs,
@@ -168,21 +169,7 @@ function Index() {
         {/* SERVICES */}
         <Section id="services">
           <Heading label="Services" title="Everything your brand needs to grow." text="From building your brand foundation to managing your marketing and optimizing your sales channels, AURALIQUE provides integrated solutions for every stage of digital commerce growth." />
-          <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-            {services.map((s, i) => (
-              <article key={s.title} className="group flex flex-col rounded-2xl border border-border bg-background p-8 transition-all duration-300 hover:border-primary hover:bg-secondary/40">
-                <div className="flex items-center justify-between">
-                  <span className="eyebrow text-primary">Service {pad(i)}</span>
-                  <s.icon size={22} strokeWidth={1.4} className="text-primary transition-transform duration-300 group-hover:-rotate-6" />
-                </div>
-                <h3 className="display mt-8 text-[1.7rem] leading-tight">{s.title}</h3>
-                <p className="mt-3 text-muted-foreground">{s.desc}</p>
-                <ul className="mt-6 grid gap-2 border-t border-border pt-6 text-sm text-foreground/80">
-                  {s.items.map((it) => <li key={it}>— {it}</li>)}
-                </ul>
-              </article>
-            ))}
-          </div>
+          <ServicesGrid onOpenBooking={openBooking} />
         </Section>
 
         {/* SELECTED WORK */}
