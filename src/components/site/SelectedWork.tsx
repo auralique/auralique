@@ -8,7 +8,7 @@ const pad = (n: number) => String(n + 1).padStart(2, "0");
 
 function ProjectCover({ project, index }: { project: Project; index: number }) {
   const img = project.images?.[0];
-  if (img) return <img src={img.src} alt={img.alt} loading="lazy" className="aspect-[16/10] w-full rounded-xl object-cover" />;
+  if (img) return <img src={img.src} alt={img.alt} loading="lazy" className="aspect-[16/10] w-full rounded-xl bg-muted object-cover transition-transform duration-500 group-hover:scale-[1.02]" />;
   return (
     <div className="relative flex aspect-[16/10] w-full flex-col justify-between overflow-hidden rounded-xl bg-secondary p-6 md:p-8">
       <span className="eyebrow text-primary">{project.category}</span>
@@ -53,7 +53,7 @@ function ProjectModal({ project, onClose }: { project: Project; onClose: () => v
         <h2 id="project-title" className="display mt-3 pr-12 text-4xl md:text-5xl">{project.title}</h2>
         <p className="mt-2 text-muted-foreground">{project.classification}</p>
         {project.images && project.images.length > 0 && (
-          <div className="mt-6 grid gap-3">{project.images.map((im) => <img key={im.src} src={im.src} alt={im.alt} loading="lazy" className="w-full rounded-xl" />)}</div>
+          <div className="mt-6 grid gap-3">{project.images.map((im) => <img key={im.src} src={im.src} alt={im.alt} loading="lazy" className="max-h-[60vh] w-full rounded-xl bg-muted object-contain" />)}</div>
         )}
         <div className="mt-8 space-y-5">
           <Field label="Overview"><p className="leading-relaxed">{project.overview}</p></Field>
