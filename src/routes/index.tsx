@@ -14,7 +14,7 @@ import {
 } from "@/lib/content";
 import { siteConfig } from "@/lib/site-config";
 import { cn } from "@/lib/utils";
-import brandLogo from "@/assets/auralique-logo.png.asset.json";
+import brandLogo from "@/assets/auralique-logo-white.png.asset.json";
 import heroMotionVideo from "@/assets/videos/hero_beauty_motion.mp4.asset.json";
 import { homepageTitle, homepageDescription, siteOrigin, structuredData } from "@/lib/seo";
 import { trackEvent } from "@/lib/analytics";
