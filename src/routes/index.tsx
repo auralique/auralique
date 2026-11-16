@@ -6,9 +6,10 @@ import { BookingModal } from "@/components/site/BookingModal";
 import { PlatformLogos } from "@/components/site/PlatformLogos";
 import { EnquiryForm } from "@/components/site/EnquiryForm";
 import { Journal } from "@/components/site/Journal";
+import { SelectedWork } from "@/components/site/SelectedWork";
 import { Testimonials } from "@/components/site/Testimonials";
 import {
-  nav, principles, platforms, industries, services, benefits, process, engagements, portfolioCategories, faqs,
+  nav, principles, platforms, industries, services, benefits, process, engagements, faqs,
 } from "@/lib/content";
 import { siteConfig } from "@/lib/site-config";
 import { cn } from "@/lib/utils";
@@ -184,6 +185,9 @@ function Index() {
           </div>
         </Section>
 
+        {/* SELECTED WORK */}
+        <SelectedWork onOpenBooking={openBooking} />
+
         {/* WHY */}
         <Section className="bg-plum text-plum-foreground">
           <div className="mb-14 grid gap-6 md:mb-20 md:grid-cols-12">
@@ -239,21 +243,6 @@ function Index() {
                 <button type="button" onClick={openBooking} className={cn("mt-10", i === 1 ? "btn-inverse" : "btn-primary")}>{e.cta} <ArrowRight size={14} /></button>
               </article>
             ))}
-          </div>
-        </Section>
-
-        {/* PORTFOLIO */}
-        <Section>
-          <Heading label="Portfolio" title="Strategic thinking. Creative execution. Measurable growth." />
-          <div className="grid gap-10 rounded-2xl border border-border p-10 md:grid-cols-2 md:p-14">
-            <div>
-              <h3 className="display text-4xl text-primary">Our portfolio is evolving.</h3>
-              <p className="mt-4 max-w-md text-muted-foreground">We are building partnerships with ambitious beauty and personal-care brands. Contact us to discuss your next project.</p>
-              <button type="button" onClick={openBooking} className="btn-primary mt-8">Discuss your project</button>
-            </div>
-            <ul className="flex flex-wrap content-start gap-2">
-              {portfolioCategories.map((c) => <li key={c} className="rounded-full border border-border px-4 py-2 text-sm text-muted-foreground">{c}</li>)}
-            </ul>
           </div>
         </Section>
 
