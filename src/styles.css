@@ -151,6 +151,20 @@ html {
   animation-direction: reverse;
 }
 
+.platform-marquee-track {
+  animation: marquee-left 45s linear infinite;
+}
+
+@media (hover: hover) {
+  .platform-marquee:hover .platform-marquee-track { animation-play-state: paused; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .platform-marquee { overflow-x: auto; }
+  .platform-marquee-track { animation: none; }
+  .platform-marquee-track > [aria-hidden="true"] { display: none; }
+}
+
 .dark {
   --background: oklch(0.129 0.042 264.695);
   --foreground: oklch(0.984 0.003 247.858);

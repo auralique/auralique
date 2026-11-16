@@ -53,18 +53,24 @@ const platforms: [string, ReactNode][] = [
 
 export function PlatformLogos() {
   return (
-    <section aria-labelledby="ecosystem-title" className="border-b border-border bg-muted px-5 py-20 md:px-8 md:py-24">
-      <div className="mx-auto max-w-6xl text-center">
+    <section aria-labelledby="ecosystem-title" className="overflow-hidden border-b border-border bg-muted py-20 md:py-24">
+      <div className="mx-auto max-w-6xl px-5 text-center md:px-8">
         <p className="eyebrow mb-4 text-primary">Our ecosystem</p>
         <h2 id="ecosystem-title" className="display mx-auto max-w-3xl text-3xl md:text-5xl">Platforms &amp; tools we work with.</h2>
-        <ul className="mt-16 grid grid-cols-2 gap-x-6 gap-y-14 sm:grid-cols-3 lg:grid-cols-5">
-          {platforms.map(([name, icon]) => (
-            <li key={name} className="group flex flex-col items-center gap-4">
-              <span className="flex h-16 w-16 items-center justify-center transition duration-300 group-hover:-translate-y-1 group-hover:scale-110">{icon}</span>
-              <span className="text-sm font-medium text-foreground/80">{name}</span>
-            </li>
+      </div>
+      <div className="platform-marquee mt-10 overflow-hidden md:mt-16">
+        <div className="platform-marquee-track flex w-max">
+          {[0, 1].map((copy) => (
+            <ul key={copy} aria-hidden={copy === 1 ? true : undefined} className="flex shrink-0 gap-6 pr-6 md:gap-12 md:pr-12">
+              {platforms.map(([name, icon]) => (
+                <li key={name} className="group flex w-40 shrink-0 flex-col items-center gap-4 text-center md:w-48">
+                  <span className="flex h-16 w-16 items-center justify-center transition duration-300 group-hover:-translate-y-1 group-hover:scale-110">{icon}</span>
+                  <span className="min-h-10 text-sm font-medium text-foreground/80">{name}</span>
+                </li>
+              ))}
+            </ul>
           ))}
-        </ul>
+        </div>
       </div>
     </section>
   );

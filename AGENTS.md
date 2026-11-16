@@ -14,3 +14,4 @@
 - Keep accurate public schema in the SEO module, excluding unverified contacts, locations, reviews and ratings; analytics receives only predefined non-identifying event labels.
 - Keep mobile layout overrides below the desktop breakpoint; mobile reviews use an expandable vertical collection while desktop retains both marquee rows.
 - Use the shared dialog-focus hook for menu and reading/booking dialogs to restore focus, trap tab navigation and restore prior body scrolling.
+- Render the platform ecosystem as duplicated equal-width lists in a CSS marquee on every viewport; hide the duplicate from assistive technology and disable automatic motion for reduced-motion preferences to keep the loop accessible.
