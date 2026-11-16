@@ -143,7 +143,9 @@ html {
   display: flex;
   width: max-content;
   animation: marquee-left 60s linear infinite;
-  &:hover { animation-play-state: paused; }
+  @media (hover: hover) {
+    &:hover { animation-play-state: paused; }
+  }
   @media (prefers-reduced-motion: reduce) { animation: none; }
 }
 
