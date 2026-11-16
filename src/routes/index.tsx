@@ -14,6 +14,7 @@ import {
 } from "@/lib/content";
 import { siteConfig } from "@/lib/site-config";
 import { cn } from "@/lib/utils";
+import brandLogo from "@/assets/auralique-logo.png.asset.json";
 import heroMotionVideo from "@/assets/videos/hero_beauty_motion.mp4.asset.json";
 import { homepageTitle, homepageDescription, siteOrigin, structuredData } from "@/lib/seo";
 import { trackEvent } from "@/lib/analytics";
@@ -272,6 +273,7 @@ function Index() {
                 <a href={siteConfig.instagram} className="flex items-center gap-3 hover:underline"><Instagram size={16} /> Instagram</a>
                 <a href={siteConfig.linkedin} className="flex items-center gap-3 hover:underline"><Linkedin size={16} /> LinkedIn</a>
               </div>
+              <img src={brandLogo.url} alt="AURALIQUE — Growth, Elevated." loading="lazy" className="mt-10 h-auto w-full max-w-[190px] md:max-w-[250px]" />
             </div>
             <div className="lg:col-span-7"><EnquiryForm /></div>
           </div>
