@@ -47,7 +47,7 @@ function DetailBody({ d, headingLevel }: { d: ServiceDetail; headingLevel: "h3" 
   );
 }
 
-function ServiceDetailModal({ service, detail, onClose, onBook }: { service: Service; detail: ServiceDetail; onClose: () => void; onBook: () => void }) {
+export function ServiceDetailModal({ service, detail, onClose, onBook }: { service: Service; detail: ServiceDetail; onClose: () => void; onBook: () => void }) {
   const panel = useRef<HTMLDivElement>(null);
   useDialogFocus(true, panel, onClose);
   return (
