@@ -72,7 +72,7 @@ function ServiceDetailModal({ service, detail, onClose, onBook }: { service: Ser
 }
 
 function ServiceCard({ service, index, onOpen }: { service: Service; index: number; onOpen: () => void }) {
-  const d = serviceDetails[index];
+  const d = serviceDetails[index]!;
   return (
     <article onClick={(e) => { if (!(e.target as HTMLElement).closest("summary, a")) onOpen(); }}
       className="group flex cursor-pointer flex-col rounded-2xl border border-border bg-background p-8 transition-all duration-300 hover:border-primary hover:bg-secondary/40">
@@ -105,7 +105,7 @@ export function ServicesGrid({ onOpenBooking }: { onOpenBooking: () => void }) {
         {services.map((s, i) => <ServiceCard key={s.title} service={s} index={i} onOpen={() => setSelected(i)} />)}
       </div>
       {selected !== null && (
-        <ServiceDetailModal service={services[selected]} detail={serviceDetails[selected]} onClose={close}
+        <ServiceDetailModal service={services[selected]!} detail={serviceDetails[selected]!} onClose={close}
           onBook={() => { setSelected(null); onOpenBooking(); }} />
       )}
     </>
