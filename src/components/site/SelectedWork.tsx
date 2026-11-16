@@ -21,6 +21,8 @@ function ProjectCover({ project, index }: { project: Project; index: number }) {
   );
 }
 
+const List = ({ items }: { items: string[] }) => <ul className="space-y-1">{items.map((i) => <li key={i}>— {i}</li>)}</ul>;
+
 function CaseStudyBody({ project, H }: { project: Project; H: "h3" | "h4" }) {
   return (
     <>
@@ -107,7 +109,7 @@ export function CaseStudyModal({ project, index, onClose, onBook, onService }: {
     const el = scroller.current; if (!el) return;
     const top = el.getBoundingClientRect().top + 120;
     let active = nav[0]!.key;
-    el.querySelectorAll<HTMLElement>("[data-cs]").forEach((s) => { if (s.getBoundingClientRect().top <= top) active = s.dataset.cs!; });
+    el.querySelectorAll<HTMLElement>("[data-cs]").forEach((s) => { if (s.getBoundingClientRect().top <= top) active = s.dataset["cs"]!; });
     setCurrent(active);
   };
   const related = (project.relatedServices ?? []).map((i) => ({ i, s: services[i] })).filter((x) => x.s);
