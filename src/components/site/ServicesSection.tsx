@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { ArrowRight, X } from "lucide-react";
 import { services } from "@/lib/content";
 import { serviceDetails, type ServiceDetail } from "@/lib/service-details";
@@ -99,6 +99,11 @@ function ServiceCard({ service, index, onOpen }: { service: Service; index: numb
 export function ServicesGrid({ onOpenBooking }: { onOpenBooking: () => void }) {
   const [selected, setSelected] = useState<number | null>(null);
   const close = useCallback(() => setSelected(null), []);
+  useEffect(() => {
+    const open = (e: Event) => setSelected((e as CustomEvent<number>).detail);
+    window.addEventListener("auralique:open-service", open);
+    return () => window.removeEventListener("auralique:open-service", open);
+  }, []);
   return (
     <>
       <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
