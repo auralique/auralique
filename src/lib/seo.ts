@@ -2,8 +2,8 @@ import { services } from "@/lib/content";
 import { journalArticles } from "@/lib/journal";
 
 export const siteOrigin = "https://auralique.lovable.app";
-export const homepageTitle = "AURALIQUE | Beauty Ecommerce & Growth Agency";
-export const homepageDescription = "AURALIQUE helps skincare, haircare, cosmetics and personal-care brands grow through Shopify, Amazon, Faire, branding, digital marketing and ecommerce management.";
+export const homepageTitle = "AURALIQUE | Beauty & eCommerce Growth Agency";
+export const homepageDescription = "AURALIQUE is a full-service eCommerce growth agency helping skincare, haircare, cosmetics and personal-care brands grow through Shopify, Amazon, branding, advertising and retention marketing.";
 
 export const structuredData = {
   "@context": "https://schema.org",

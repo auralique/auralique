@@ -77,9 +77,10 @@ function Index() {
               <p className="eyebrow fade-up mb-8 text-primary-foreground/80">Full-service e-commerce growth agency</p>
               <h1 className="display fade-up text-[13vw] leading-[0.95] md:text-[6.5rem]">
                 We build.<br />We manage.<br /><em className="text-secondary">We grow.</em>
+                <span className="mt-6 block text-2xl leading-snug md:text-4xl">Beauty and personal care brands.</span>
               </h1>
               <p className="display mt-10 text-2xl leading-snug md:text-3xl">
-                Your beauty ecommerce agency and growth partner for ambitious skincare, haircare, cosmetics and personal-care brands.
+                The beauty eCommerce agency and Shopify growth partner for ambitious skincare, haircare, cosmetics and personal-care brands.
               </p>
               <p className="mt-6 max-w-xl leading-relaxed text-primary-foreground/85">
                 From beauty brand identity and Shopify store development to Amazon and Faire marketplace management, digital advertising and customer retention, AURALIQUE brings every part of your digital commerce growth together for brands internationally.
@@ -181,7 +182,7 @@ function Index() {
           <div className="mb-14 grid gap-6 md:mb-20 md:grid-cols-12">
             <div className="md:col-span-7">
               <p className="eyebrow mb-5 text-secondary">Why AURALIQUE</p>
-              <h2 className="display text-4xl md:text-6xl">Your business. One integrated growth partner.</h2>
+              <h2 className="display text-4xl md:text-6xl">Why choose a full-service eCommerce agency.</h2>
             </div>
             <div className="space-y-4 self-end text-plum-foreground/80 md:col-span-5">
               <p>Managing an e-commerce business requires more than an attractive website or successful advertising campaign. It requires connected strategy, consistent execution and continuous optimization.</p>
@@ -245,7 +246,7 @@ function Index() {
           <div className="grid gap-12 md:grid-cols-12">
             <div className="md:col-span-4">
               <p className="eyebrow mb-5 text-primary">FAQ</p>
-              <h2 className="display text-4xl md:text-5xl">Frequently asked questions.</h2>
+              <h2 className="display text-4xl md:text-5xl">Beauty eCommerce agency FAQs.</h2>
             </div>
             <div className="md:col-span-8">
               {faqs.map(([q, a]) => (
