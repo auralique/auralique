@@ -109,7 +109,7 @@ export function Header({ onOpenBooking }: { onOpenBooking: () => void }) {
           <ul className="mx-auto flex max-w-xl flex-col px-6 py-6">
             {nav.map((n) => (
               <li key={n.href}>
-                <a href={n.href} onClick={() => setOpen(false)} className="display flex min-h-14 items-center border-b border-border text-3xl text-plum">{n.label}</a>
+                <a href={n.href} onClick={() => setOpen(false)} className="display flex min-h-12 items-center border-b border-border text-xl text-plum">{n.label}</a>
               </li>
             ))}
             <li className="pt-8">
