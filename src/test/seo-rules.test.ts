@@ -25,8 +25,8 @@ describe("SEO and conversion rules", () => {
   });
   it("sends only the explicit article label, never enquiry details", () => {
     const spy = vi.fn(); window.gtag = spy;
-    trackEvent("blog_article_open", { article_id: "more-than-an-online-store" });
-    expect(spy).toHaveBeenCalledWith("event", "blog_article_open", { article_id: "more-than-an-online-store" });
+    trackEvent("blog_article_open", { article_id: "grow-a-skincare-brand-online" });
+    expect(spy).toHaveBeenCalledWith("event", "blog_article_open", { article_id: "grow-a-skincare-brand-online" });
     delete window.gtag;
   });
 });

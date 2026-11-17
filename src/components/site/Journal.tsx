@@ -29,8 +29,9 @@ function BlogCard({ article, index, onOpen }: { article: JournalArticle; index: 
         <ArrowRight size={14} className="transition-transform duration-300 group-hover:translate-x-1" />
       </summary>
       <div className="mt-6 space-y-5 leading-relaxed text-muted-foreground">
-        {article.body.map((block, i) => block.type === "paragraph" ? <p key={i}>{block.text}</p> : <ul key={i} className="list-disc pl-5">{block.items.map((item) => <li key={item.text}>{item.lead && <strong>{item.lead} </strong>}{item.text}</li>)}</ul>)}
+        {article.body.map((block, i) => block.type === "paragraph" ? <p key={i}>{block.text}</p> : block.type === "heading" ? <h4 key={i} className="display text-xl text-foreground">{block.text}</h4> : <ul key={i} className="list-disc pl-5">{block.items.map((item) => <li key={item.text}>{item.lead && <strong>{item.lead} </strong>}{item.text}</li>)}</ul>)}
         <p>{article.closing}</p>
+        <ul className="flex flex-wrap gap-3">{article.related.map((l) => <li key={l.label}><a href={l.href} className="underline">{l.label}</a></li>)}</ul>
       </div>
       </details>
     </article>
@@ -81,6 +82,8 @@ function BlogModal({ article, onClose }: { article: JournalArticle; onClose: () 
             {article.body.map((block, i) =>
               block.type === "paragraph" ? (
                 <p key={i}>{block.text}</p>
+              ) : block.type === "heading" ? (
+                <h3 key={i} className="display pt-4 text-2xl leading-snug text-plum">{block.text}</h3>
               ) : (
                 <ul key={i} className="space-y-2.5 rounded-xl border border-border bg-background p-6">
                   {block.items.map((item) => (
@@ -99,6 +102,14 @@ function BlogModal({ article, onClose }: { article: JournalArticle; onClose: () 
           <p className="display mt-10 border-l-2 border-primary pl-5 text-xl italic text-plum md:text-2xl">
             “{article.closing}”
           </p>
+          <nav aria-label="Related" className="mt-10 border-t border-border pt-6">
+            <p className="eyebrow mb-4 text-primary">Continue exploring</p>
+            <ul className="flex flex-wrap gap-2">
+              {article.related.map((l) => (
+                <li key={l.label}><a href={l.href} onClick={onClose} className="inline-flex min-h-11 items-center rounded-full bg-secondary px-4 py-2 text-sm text-plum transition-colors hover:bg-primary hover:text-primary-foreground">{l.label}</a></li>
+              ))}
+            </ul>
+          </nav>
         </div>
       </div>
     </div>
