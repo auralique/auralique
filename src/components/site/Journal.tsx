@@ -22,7 +22,7 @@ function BlogCard({ article, index, onOpen }: { article: JournalArticle; index: 
       <details id={`article-${article.id}`}>
       <summary
         onClick={(event) => { event.preventDefault(); onOpen(article); }}
-        className="eyebrow mt-8 inline-flex items-center gap-2 self-start border-t border-border pt-5 text-foreground transition-colors group-hover:text-primary"
+        className="eyebrow mt-8 inline-flex items-center gap-2 self-start !text-[0.625rem] border-t border-border pt-5 text-foreground transition-colors group-hover:text-primary"
         aria-label={`Read article: ${article.title}`}
       >
         Read Article
