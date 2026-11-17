@@ -41,7 +41,7 @@ export function Header({ onOpenBooking }: { onOpenBooking: () => void }) {
     return () => { document.removeEventListener("mousedown", down); document.removeEventListener("keydown", key); };
   }, [svc]);
 
-  const linkCls = "whitespace-nowrap text-[0.8rem] font-medium tracking-[0.08em] text-plum/80 transition-colors hover:text-primary";
+  const linkCls = "inline-flex h-6 items-center whitespace-nowrap text-[0.8rem] font-medium tracking-[0.08em] text-plum/80 transition-colors hover:text-primary";
 
   return (
     <header
