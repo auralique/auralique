@@ -52,7 +52,7 @@ export const projects: Project[] = [
     classification: "Beauty E-commerce Experience",
     overview: "An established beauty and personal-care commerce experience bringing skincare, haircare and body-care products together through structured product discovery, informative product presentation and an educational brand experience.",
     tags: ["Beauty E-commerce", "Skincare", "Haircare", "Product Discovery", "E-commerce Experience"],
-    // url pending owner confirmation of domain
+    url: "https://juicychemistry.com/",
   },
   {
     id: "yazijico",

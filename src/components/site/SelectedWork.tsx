@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { ArrowRight, X } from "lucide-react";
+import { ArrowRight, ArrowUpRight, X } from "lucide-react";
 import { services } from "@/lib/content";
 import { Link } from "@tanstack/react-router";
 import { useModalRoute, slugFor } from "@/hooks/use-modal-route";
@@ -24,6 +24,18 @@ function ProjectCover({ project, index }: { project: Project; index: number }) {
 
 const List = ({ items }: { items: string[] }) => <ul className="space-y-1">{items.map((i) => <li key={i}>— {i}</li>)}</ul>;
 
+function ProjectWebsiteLink({ project }: { project: Project }) {
+  if (!project.url) return null;
+  const domain = new URL(project.url).hostname.replace(/^www\./, "");
+  return (
+    <a href={project.url} target="_blank" rel="noopener noreferrer"
+      className="inline-flex min-h-11 items-center gap-2 rounded-full border border-primary px-5 text-sm font-semibold text-primary transition-colors hover:bg-primary hover:text-primary-foreground">
+      Visit {domain} <ArrowUpRight size={16} aria-hidden="true" />
+      <span className="sr-only">(opens in a new tab)</span>
+    </a>
+  );
+}
+
 function CaseStudyBody({ project, H }: { project: Project; H: "h3" | "h4" }) {
   return (
     <>
@@ -31,6 +43,7 @@ function CaseStudyBody({ project, H }: { project: Project; H: "h3" | "h4" }) {
         <H className="eyebrow mb-3 text-primary">Project overview</H>
         <p className="leading-relaxed">{project.caseOverview ?? project.overview}</p>
         {project.industry?.length ? <ul className="mt-4 flex flex-wrap gap-2">{project.industry.map((t) => <li key={t} className="rounded-full bg-secondary px-3 py-1 text-sm text-plum">{t}</li>)}</ul> : null}
+        {project.url && <div className="mt-5"><ProjectWebsiteLink project={project} /></div>}
       </section>
       {project.objectives && <section><H className="eyebrow mb-3 text-primary">Project objectives</H><p className="leading-relaxed">{project.objectives}</p></section>}
       {(project.contribution || project.role || project.services?.length || project.workCompleted?.length) ? (
