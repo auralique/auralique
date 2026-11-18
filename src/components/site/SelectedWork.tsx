@@ -1,8 +1,9 @@
 import { useRef, useState } from "react";
 import { ArrowRight, X } from "lucide-react";
 import { services } from "@/lib/content";
-import { ServiceDetailModal } from "@/components/site/ServicesSection";
-import { serviceDetails } from "@/lib/service-details";
+import { Link } from "@tanstack/react-router";
+import { useModalRoute, slugFor } from "@/hooks/use-modal-route";
+import { findProject, serviceSlugs } from "@/lib/content-urls";
 import { projects, projectCategories, type Project } from "@/lib/projects";
 import { useDialogFocus } from "@/hooks/use-dialog-focus";
 import { cn } from "@/lib/utils";
@@ -65,7 +66,7 @@ export function CaseStudyCard({ project, index, onOpen }: { project: Project; in
         <span className="eyebrow text-primary">Project {pad(index)}</span>
         {project.platform && <span className="rounded-full border border-border px-3 py-1 text-xs text-muted-foreground">{project.platform}</span>}
       </div>
-      <h3 className="display mt-4 text-3xl">{project.title}</h3>
+      <h3 className="display mt-4 text-3xl"><Link to="/work/$slug" params={{ slug: project.id }} resetScroll={false} onClick={(e) => { e.preventDefault(); onOpen(); }} className="hover:text-primary">{project.title}</Link></h3>
       <p className="mt-1 text-sm text-muted-foreground">{project.category}</p>
       <p className="mt-4 flex-1 leading-relaxed text-foreground/80">{project.overview}</p>
       <details>
@@ -131,7 +132,7 @@ export function CaseStudyModal({ project, index, onClose, onBook, onService }: {
         </div>
         <div ref={scroller} onScroll={onScroll} className="article-scroll min-h-0 flex-1 overflow-y-auto overscroll-contain px-5 py-8 md:px-12 md:py-12">
           <p className="display text-6xl leading-none text-primary/20 md:text-8xl" aria-hidden>{pad(index)}</p>
-          <h2 id="project-title" className="display mt-2 text-3xl leading-tight text-plum md:text-5xl">{project.caseTitle ?? project.title}</h2>
+          <h1 id="project-title" className="display mt-2 text-3xl leading-tight text-plum md:text-5xl">{project.caseTitle ?? project.title}</h1>
           <p className="mt-3 text-muted-foreground">{project.classification}{project.platform ? ` · ${project.platform}` : ""}</p>
           <p className="mt-6 max-w-3xl text-lg leading-relaxed text-foreground/85">{project.overview}</p>
           <div className="my-10 h-px bg-border" aria-hidden />
@@ -154,9 +155,9 @@ export function CaseStudyModal({ project, index, onClose, onBook, onService }: {
                 <h3 className="eyebrow mb-4 text-primary">Related services</h3>
                 <div className="grid gap-3 sm:grid-cols-3">
                   {related.map(({ i, s }) => (
-                    <button key={i} type="button" onClick={() => onService(i)} className="group flex items-center justify-between gap-3 rounded-2xl border border-border bg-background p-5 text-left transition-colors hover:border-primary">
+                    <a key={i} href={`/services/${serviceSlugs[i]}`} onClick={(e) => { e.preventDefault(); onService(i); }} className="group flex items-center justify-between gap-3 rounded-2xl border border-border bg-background p-5 text-left transition-colors hover:border-primary">
                       <span className="display text-lg leading-snug">{s!.title}</span><ArrowRight size={16} className="shrink-0 text-primary transition-transform group-hover:translate-x-1" />
-                    </button>
+                    </a>
                   ))}
                 </div>
               </section>
@@ -176,8 +177,9 @@ export function CaseStudyModal({ project, index, onClose, onBook, onService }: {
 
 export function SelectedWork({ onOpenBooking }: { onOpenBooking: () => void }) {
   const [filter, setFilter] = useState<(typeof projectCategories)[number]>("All Projects");
-  const [active, setActive] = useState<Project | null>(null);
-  const [service, setService] = useState<number | null>(null);
+  const { pathname, open, close } = useModalRoute();
+  const slug = slugFor(pathname, "work");
+  const active = slug ? findProject(slug) ?? null : null;
   const visible = projects.filter((p) => filter === "All Projects" || p.category === filter);
   return (
     <section id="work" className="px-5 py-24 md:px-8 md:py-32">
@@ -198,7 +200,7 @@ export function SelectedWork({ onOpenBooking }: { onOpenBooking: () => void }) {
           ))}
         </div>
         <div className="grid gap-5 md:grid-cols-2 md:gap-6">
-          {visible.map((p) => <CaseStudyCard key={p.id} project={p} index={projects.indexOf(p)} onOpen={() => setActive(p)} />)}
+          {visible.map((p) => <CaseStudyCard key={p.id} project={p} index={projects.indexOf(p)} onOpen={() => open({ to: "/work/$slug", params: { slug: p.id } })} />)}
         </div>
         <div className="mt-16 flex flex-col items-start justify-between gap-6 rounded-2xl bg-secondary p-8 md:flex-row md:items-center md:p-12">
           <div className="max-w-xl">
@@ -208,9 +210,8 @@ export function SelectedWork({ onOpenBooking }: { onOpenBooking: () => void }) {
           <button type="button" onClick={onOpenBooking} className="btn-primary shrink-0">Book a strategy call <ArrowRight size={14} /></button>
         </div>
       </div>
-      {active && <CaseStudyModal project={active} index={projects.indexOf(active)} onClose={() => setActive(null)}
-        onBook={() => { setActive(null); onOpenBooking(); }} onService={(i) => { setActive(null); setService(i); }} />}
-      {service !== null && <ServiceDetailModal service={services[service]!} detail={serviceDetails[service]!} onClose={() => setService(null)} onBook={() => { setService(null); onOpenBooking(); }} />}
+      {active && <CaseStudyModal project={active} index={projects.indexOf(active)} onClose={close}
+        onBook={() => { close(); onOpenBooking(); }} onService={(i) => open({ to: "/services/$slug", params: { slug: serviceSlugs[i]! } })} />}
     </section>
   );
 }

@@ -1,4 +1,7 @@
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useRef } from "react";
+import { Link } from "@tanstack/react-router";
+import { useModalRoute, slugFor } from "@/hooks/use-modal-route";
+import { articleSlug, findArticle } from "@/lib/content-urls";
 import { ArrowRight, Clock, X } from "lucide-react";
 import { journalArticles, type JournalArticle } from "@/lib/journal";
 import { trackEvent } from "@/lib/analytics";
@@ -16,7 +19,7 @@ function BlogCard({ article, index, onOpen }: { article: JournalArticle; index: 
       </div>
       <h3 className="display mt-6 text-2xl leading-snug md:text-[1.75rem]">
         <span className="mr-2 text-sm text-primary/70 align-middle">{String(index + 1).padStart(2, "0")}</span>
-        {article.title}
+        <Link to="/blog/$slug" params={{ slug: articleSlug(article.id) }} resetScroll={false} onClick={(e) => { e.preventDefault(); onOpen(article); }} className="hover:text-primary">{article.title}</Link>
       </h3>
       <p className="mt-4 flex-1 leading-relaxed text-muted-foreground">{article.excerpt}</p>
       <details id={`article-${article.id}`}>
@@ -31,14 +34,14 @@ function BlogCard({ article, index, onOpen }: { article: JournalArticle; index: 
       <div className="mt-6 space-y-5 leading-relaxed text-muted-foreground">
         {article.body.map((block, i) => block.type === "paragraph" ? <p key={i}>{block.text}</p> : block.type === "heading" ? <h4 key={i} className="display text-xl text-foreground">{block.text}</h4> : <ul key={i} className="list-disc pl-5">{block.items.map((item) => <li key={item.text}>{item.lead && <strong>{item.lead} </strong>}{item.text}</li>)}</ul>)}
         <p>{article.closing}</p>
-        <ul className="flex flex-wrap gap-3">{article.related.map((l) => <li key={l.label}><a href={l.href} className="underline">{l.label}</a></li>)}</ul>
+        <ul className="flex flex-wrap gap-3">{article.related.map((l) => <li key={l.label}><a href={`/${l.href}`} className="underline">{l.label}</a></li>)}</ul>
       </div>
       </details>
     </article>
   );
 }
 
-function BlogModal({ article, onClose }: { article: JournalArticle; onClose: () => void }) {
+function BlogModal({ article, onClose, onRelated }: { article: JournalArticle; onClose: () => void; onRelated: (hash: string) => void }) {
   const panelRef = useRef<HTMLDivElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
   useDialogFocus(true, panelRef, onClose);
@@ -76,7 +79,7 @@ function BlogModal({ article, onClose }: { article: JournalArticle; onClose: () 
         </div>
 
         <div className="article-scroll min-h-0 overflow-y-auto px-6 py-8 md:px-12 md:py-10">
-          <h2 className="display text-3xl leading-tight text-plum md:text-4xl">{article.title}</h2>
+          <h1 className="display text-3xl leading-tight text-plum md:text-4xl">{article.title}</h1>
           <div className="my-8 h-px bg-border" aria-hidden />
           <div className="space-y-5 text-[1.05rem] leading-relaxed text-foreground/85">
             {article.body.map((block, i) =>
@@ -106,7 +109,7 @@ function BlogModal({ article, onClose }: { article: JournalArticle; onClose: () 
             <p className="eyebrow mb-4 text-primary">Continue exploring</p>
             <ul className="flex flex-wrap gap-2">
               {article.related.map((l) => (
-                <li key={l.label}><a href={l.href} onClick={onClose} className="inline-flex min-h-11 items-center rounded-full bg-secondary px-4 py-2 text-sm text-plum transition-colors hover:bg-primary hover:text-primary-foreground">{l.label}</a></li>
+                <li key={l.label}><a href={`/${l.href}`} onClick={(e) => { e.preventDefault(); onRelated(l.href.slice(1)); }} className="inline-flex min-h-11 items-center rounded-full bg-secondary px-4 py-2 text-sm text-plum transition-colors hover:bg-primary hover:text-primary-foreground">{l.label}</a></li>
               ))}
             </ul>
           </nav>
@@ -117,9 +120,10 @@ function BlogModal({ article, onClose }: { article: JournalArticle; onClose: () 
 }
 
 export function Journal() {
-  const [selected, setSelected] = useState<JournalArticle | null>(null);
-  const open = useCallback((a: JournalArticle) => { trackEvent("blog_article_open", { article_id: a.id }); setSelected(a); }, []);
-  const close = useCallback(() => setSelected(null), []);
+  const { pathname, open: openUrl, close, goHome } = useModalRoute();
+  const slug = slugFor(pathname, "blog");
+  const selected = slug ? findArticle(slug) ?? null : null;
+  const open = useCallback((a: JournalArticle) => { trackEvent("blog_article_open", { article_id: a.id }); openUrl({ to: "/blog/$slug", params: { slug: articleSlug(a.id) } }); }, [openUrl]);
 
   return (
     <section id="journal" className="bg-secondary px-5 py-24 md:px-8 md:py-32">
@@ -141,7 +145,7 @@ export function Journal() {
         </div>
       </div>
 
-      {selected && <BlogModal article={selected} onClose={close} />}
+      {selected && <BlogModal article={selected} onClose={close} onRelated={goHome} />}
     </section>
   );
 }

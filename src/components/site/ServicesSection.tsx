@@ -1,4 +1,7 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
+import { Link } from "@tanstack/react-router";
+import { useModalRoute, slugFor } from "@/hooks/use-modal-route";
+import { findServiceIndex, serviceSlugs } from "@/lib/content-urls";
 import { ArrowRight, X } from "lucide-react";
 import { services } from "@/lib/content";
 import { serviceDetails, type ServiceDetail } from "@/lib/service-details";
@@ -60,7 +63,7 @@ export function ServiceDetailModal({ service, detail, onClose, onBook }: { servi
         </div>
         <div className="article-scroll min-h-0 flex-1 overflow-y-auto overscroll-contain px-6 py-8 md:px-12 md:py-10">
           <p className="eyebrow text-muted-foreground">{service.title}</p>
-          <h2 id="service-modal-title" className="display mt-3 text-3xl leading-tight text-plum md:text-5xl">{detail.headline}</h2>
+          <h1 id="service-modal-title" className="display mt-3 text-3xl leading-tight text-plum md:text-5xl">{detail.headline}</h1>
           <p className="mt-6 text-lg leading-relaxed text-foreground/85">{detail.intro}</p>
           <div className="my-10 h-px bg-border" aria-hidden />
           <DetailBody d={detail} headingLevel="h3" />
@@ -80,7 +83,7 @@ function ServiceCard({ service, index, onOpen }: { service: Service; index: numb
         <span className="eyebrow text-primary">Service {pad(index)}</span>
         <service.icon size={22} strokeWidth={1.4} className="text-primary transition-transform duration-300 group-hover:-rotate-6" />
       </div>
-      <h3 className="display mt-8 text-[1.7rem] leading-tight">{service.title}</h3>
+      <h3 className="display mt-8 text-[1.7rem] leading-tight"><Link to="/services/$slug" params={{ slug: serviceSlugs[index]! }} resetScroll={false} onClick={(e) => { e.preventDefault(); onOpen(); }} className="hover:text-primary">{service.title}</Link></h3>
       <p className="mt-3 text-muted-foreground">{service.desc}</p>
       <ul className="mt-6 grid flex-1 content-start gap-2 border-t border-border pt-6 text-sm text-foreground/80">
         {service.items.map((it) => <li key={it}>— {it}</li>)}
@@ -97,21 +100,23 @@ function ServiceCard({ service, index, onOpen }: { service: Service; index: numb
 }
 
 export function ServicesGrid({ onOpenBooking }: { onOpenBooking: () => void }) {
-  const [selected, setSelected] = useState<number | null>(null);
-  const close = useCallback(() => setSelected(null), []);
+  const { pathname, open, close } = useModalRoute();
+  const slug = slugFor(pathname, "services");
+  const selected = slug ? findServiceIndex(slug) : -1;
+  const openAt = (i: number) => open({ to: "/services/$slug", params: { slug: serviceSlugs[i]! } });
   useEffect(() => {
-    const open = (e: Event) => setSelected((e as CustomEvent<number>).detail);
-    window.addEventListener("auralique:open-service", open);
-    return () => window.removeEventListener("auralique:open-service", open);
-  }, []);
+    const handler = (e: Event) => openAt((e as CustomEvent<number>).detail);
+    window.addEventListener("auralique:open-service", handler);
+    return () => window.removeEventListener("auralique:open-service", handler);
+  });
   return (
     <>
       <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-        {services.map((s, i) => <ServiceCard key={s.title} service={s} index={i} onOpen={() => setSelected(i)} />)}
+        {services.map((s, i) => <ServiceCard key={s.title} service={s} index={i} onOpen={() => openAt(i)} />)}
       </div>
-      {selected !== null && (
+      {selected >= 0 && (
         <ServiceDetailModal service={services[selected]!} detail={serviceDetails[selected]!} onClose={close}
-          onBook={() => { setSelected(null); onOpenBooking(); }} />
+          onBook={() => { close(); onOpenBooking(); }} />
       )}
     </>
   );

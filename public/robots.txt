@@ -13,4 +13,4 @@ Allow: /
 User-agent: *
 Allow: /
 
-Sitemap: https://auralique.lovable.app/sitemap.xml
+Sitemap: https://auralique.agency/sitemap.xml

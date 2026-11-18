@@ -30,3 +30,14 @@ describe("SEO and conversion rules", () => {
     delete window.gtag;
   });
 });
+import { contentPaths } from "@/lib/content-urls";
+describe("Content URLs", () => {
+  it("gives every article, service and case study its own path", () => {
+    const paths = contentPaths();
+    expect(paths).toContain("/blog/how-to-grow-a-skincare-brand-online");
+    expect(paths).toContain("/services/branding-and-creative-design");
+    expect(paths).toContain("/work/dignite-store");
+    expect(paths).toHaveLength(14);
+    expect(new Set(paths).size).toBe(14);
+  });
+});
