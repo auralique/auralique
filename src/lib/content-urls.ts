@@ -35,7 +35,7 @@ export const pageUrl = (path: string) => `${siteOrigin}${path}`;
 
 const org = { "@type": "Organization", "@id": `${siteOrigin}/#organization`, name: "AURALIQUE", url: `${siteOrigin}/` };
 
-export function contentHead(o: { path: string; title: string; description: string; type: "article" | "website"; image?: string; schema: Record<string, unknown> }) {
+export function contentHead(o: { path: string; title: string; description: string; type: "article" | "website"; image?: string | undefined; schema: Record<string, unknown> }) {
   const url = pageUrl(o.path);
   return {
     meta: [
