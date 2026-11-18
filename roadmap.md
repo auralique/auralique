@@ -14,4 +14,8 @@ External setup is documented in the audit: account IDs/consent, Search Console a
 - [x] Make Journal cards tappable and mobile reviews expandable to all 20.
 - [x] Verify all nine widths and mobile visitor flow; document external limitations.
 
-Mobile verification: no page overflow at 320, 360, 375, 390, 414, 430, 768, 1024 and 1440px; eight tests pass. Calendly date selection reveals available times at 320px without frame overflow. No real appointment submitted. Enquiry delivery remains unconnected; analytics IDs/consent and Search Console remain external setup. No field Core Web Vitals verdict claimed.
+Mobile verification: no page overflow at 320, 360, 375, 390, 414, 430, 768, 1024 and 1440px; eight tests pass. Calendly date selection reveals available times at 320px without frame overflow. No real appointment submitted. Enquiry delivery remains unconnected; analytics IDs/consent remain external setup. No field Core Web Vitals verdict claimed.
+
+# Search Console setup
+- [ ] Publish the verification tag for https://auralique.agency/ and verify ownership.
+- [ ] Confirm the live same-origin sitemap, add the verified property and submit the sitemap.
