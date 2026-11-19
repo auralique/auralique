@@ -21,3 +21,8 @@ Mobile verification: no page overflow at 320, 360, 375, 390, 414, 430, 768, 1024
 - [x] Confirm the live same-origin sitemap, add the verified property and submit the sitemap.
 
 Search Console reports the submitted sitemap as pending with zero errors and zero warnings; this does not establish indexing.
+
+# Official contact details
+- [x] Publish the official email (hello@auralique.agency) and LinkedIn company page in Contact, footer and structured data.
+
+Instagram remains a placeholder link (instagram.com) by the owner's choice; the official profile address was not provided.
