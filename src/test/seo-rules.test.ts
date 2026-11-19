@@ -19,7 +19,8 @@ describe("SEO and conversion rules", () => {
     expect(structuredData["@graph"].filter((node) => node["@type"] === "Article")).toHaveLength(4);
   });
   it("lists only the official profile URLs the owner supplied", () => {
-    const organization = structuredData["@graph"].find((node) => node["@type"] === "Organization");
+    const organization = structuredData["@graph"][0] as { "@type"?: string; sameAs?: string[] };
+    expect(organization["@type"]).toBe("Organization");
     expect(organization.sameAs).toEqual([
       "https://www.linkedin.com/company/auralique/",
       "https://techbehemoths.com/company/auralique",
