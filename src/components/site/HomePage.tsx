@@ -1,6 +1,6 @@
 import { useLocation } from "@tanstack/react-router";
 import { ArrowRight, ArrowUpRight, Plus, Mail, Instagram, Linkedin } from "lucide-react";
-import { useCallback, useState, type ReactNode } from "react";
+import { useCallback, useEffect, useState, type ReactNode } from "react";
 import { Header } from "@/components/site/Header";
 import { BookingModal } from "@/components/site/BookingModal";
 import { PlatformLogos } from "@/components/site/PlatformLogos";
@@ -38,6 +38,39 @@ function Heading({ label, title, text, light }: { label?: string; title: string;
       </div>
       {text && <p className={cn("self-end text-lg leading-relaxed md:col-span-5", light ? "text-primary-foreground/85" : "text-muted-foreground")}>{text}</p>}
     </div>
+  );
+}
+
+// TechBehemoths verification mark. The artwork is probed before it is shown, so
+// a CDN outage or blocked request never leaves an empty chip in the footer.
+function VerificationBadge() {
+  const [available, setAvailable] = useState(false);
+  useEffect(() => {
+    const probe = new Image();
+    probe.onload = () => setAvailable(true);
+    probe.onerror = () => setAvailable(false);
+    probe.src = siteConfig.techbehemothsBadge;
+    return () => {
+      probe.onload = null;
+      probe.onerror = null;
+    };
+  }, []);
+  if (!available) return null;
+  return (
+    <a
+      href={siteConfig.techbehemoths}
+      target="_blank"
+      rel="noopener"
+      data-techbehemoths-verification
+      aria-label="AURALIQUE is verified on TechBehemoths"
+      className="mt-6 inline-flex items-center rounded-full bg-plum-foreground px-4 py-2 opacity-90 transition-opacity hover:opacity-100"
+    >
+      <img
+        src={siteConfig.techbehemothsBadge}
+        alt="TechBehemoths Verification"
+        className="h-5 w-auto"
+      />
+    </a>
   );
 }
 
@@ -285,6 +318,7 @@ export function HomePage() {
               <li><a href={siteConfig.instagram} className="hover:text-plum-foreground">Instagram</a></li>
               <li><a href={siteConfig.linkedin} className="hover:text-plum-foreground">LinkedIn</a></li>
             </ul>
+            <VerificationBadge />
           </div>
         </div>
         <div className="mx-auto mt-14 flex max-w-7xl flex-col justify-between gap-4 border-t border-plum-foreground/15 pt-6 text-xs text-plum-foreground/60 sm:flex-row">

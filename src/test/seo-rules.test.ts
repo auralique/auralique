@@ -15,8 +15,15 @@ describe("SEO and conversion rules", () => {
   });
   it("does not publish fabricated ratings, customers or business locations", () => {
     const json = JSON.stringify(structuredData);
-    for (const key of ['"aggregateRating"', '"review"', '"address"', '"telephone"', '"sameAs"']) expect(json).not.toContain(key);
+    for (const key of ['"aggregateRating"', '"review"', '"address"', '"telephone"']) expect(json).not.toContain(key);
     expect(structuredData["@graph"].filter((node) => node["@type"] === "Article")).toHaveLength(4);
+  });
+  it("lists only the official profile URLs the owner supplied", () => {
+    const organization = structuredData["@graph"].find((node) => node["@type"] === "Organization");
+    expect(organization.sameAs).toEqual([
+      "https://www.linkedin.com/company/auralique/",
+      "https://techbehemoths.com/company/auralique",
+    ]);
   });
   it("omits lastmod when no page-specific authoritative timestamp exists", () => {
     const xml = sitemapXML("https://auralique.lovable.app", [{ path: "/" }]);
