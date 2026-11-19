@@ -63,12 +63,12 @@ function VerificationBadge() {
       rel="noopener"
       data-techbehemoths-verification
       aria-label="AURALIQUE is verified on TechBehemoths"
-      className="inline-flex items-center rounded-full bg-plum-foreground px-4 py-2 opacity-90 transition-opacity hover:opacity-100"
+      className="inline-flex items-center rounded-full bg-plum-foreground px-3 py-1.5 opacity-90 transition-opacity hover:opacity-100"
     >
       <img
         src={siteConfig.techbehemothsBadge}
         alt="TechBehemoths Verification"
-        className="h-5 w-auto"
+        className="h-4 w-auto"
       />
     </a>
   );
@@ -320,12 +320,10 @@ export function HomePage() {
             </ul>
           </div>
         </div>
-        <div className="mx-auto mt-12 flex max-w-7xl justify-center">
-          <VerificationBadge />
-        </div>
-        <div className="mx-auto mt-14 flex max-w-7xl flex-col justify-between gap-4 border-t border-plum-foreground/15 pt-6 text-xs text-plum-foreground/60 sm:flex-row">
-          <p>© {new Date().getFullYear()} AURALIQUE. All rights reserved.</p>
-          <div className="flex gap-6"><a href="#" className="hover:text-plum-foreground">Privacy Policy</a><a href="#" className="hover:text-plum-foreground">Terms of Service</a></div>
+        <div className="mx-auto mt-14 flex max-w-7xl flex-col items-center gap-4 border-t border-plum-foreground/15 pt-6 text-xs text-plum-foreground/60 sm:grid sm:grid-cols-[1fr_auto_1fr] sm:items-center">
+          <p className="text-center sm:justify-self-start sm:text-left">© {new Date().getFullYear()} AURALIQUE. All rights reserved.</p>
+          <div className="flex justify-center sm:justify-self-center"><VerificationBadge /></div>
+          <div className="flex justify-center gap-6 sm:justify-self-end"><a href="#" className="hover:text-plum-foreground">Privacy Policy</a><a href="#" className="hover:text-plum-foreground">Terms of Service</a></div>
         </div>
       </footer>
     </>
