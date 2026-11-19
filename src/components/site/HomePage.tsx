@@ -63,7 +63,7 @@ function VerificationBadge() {
       rel="noopener"
       data-techbehemoths-verification
       aria-label="AURALIQUE is verified on TechBehemoths"
-      className="mt-6 inline-flex items-center rounded-full bg-plum-foreground px-4 py-2 opacity-90 transition-opacity hover:opacity-100"
+      className="inline-flex items-center rounded-full bg-plum-foreground px-4 py-2 opacity-90 transition-opacity hover:opacity-100"
     >
       <img
         src={siteConfig.techbehemothsBadge}
@@ -318,8 +318,10 @@ export function HomePage() {
               <li><a href={siteConfig.instagram} className="hover:text-plum-foreground">Instagram</a></li>
               <li><a href={siteConfig.linkedin} className="hover:text-plum-foreground">LinkedIn</a></li>
             </ul>
-            <VerificationBadge />
           </div>
+        </div>
+        <div className="mx-auto mt-12 flex max-w-7xl justify-center">
+          <VerificationBadge />
         </div>
         <div className="mx-auto mt-14 flex max-w-7xl flex-col justify-between gap-4 border-t border-plum-foreground/15 pt-6 text-xs text-plum-foreground/60 sm:flex-row">
           <p>© {new Date().getFullYear()} AURALIQUE. All rights reserved.</p>
