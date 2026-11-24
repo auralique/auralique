@@ -24,6 +24,7 @@ describe("SEO and conversion rules", () => {
     expect(organization.sameAs).toEqual([
       "https://www.linkedin.com/company/auralique/",
       "https://techbehemoths.com/company/auralique",
+      "https://www.f6s.com/member/auralique",
     ]);
   });
   it("omits lastmod when no page-specific authoritative timestamp exists", () => {

@@ -41,20 +41,26 @@ function Heading({ label, title, text, light }: { label?: string; title: string;
   );
 }
 
-// TechBehemoths verification mark. The artwork is probed before it is shown, so
-// a CDN outage or blocked request never leaves an empty chip in the footer.
-function VerificationBadge() {
+// Remote badge artwork is probed before it is shown, so a CDN outage or blocked
+// request never leaves an empty chip in the footer.
+function useRemoteImageAvailable(src: string) {
   const [available, setAvailable] = useState(false);
   useEffect(() => {
     const probe = new Image();
     probe.onload = () => setAvailable(true);
     probe.onerror = () => setAvailable(false);
-    probe.src = siteConfig.techbehemothsBadge;
+    probe.src = src;
     return () => {
       probe.onload = null;
       probe.onerror = null;
     };
-  }, []);
+  }, [src]);
+  return available;
+}
+
+// TechBehemoths verification mark.
+function VerificationBadge() {
+  const available = useRemoteImageAvailable(siteConfig.techbehemothsBadge);
   if (!available) return null;
   return (
     <a
@@ -69,6 +75,29 @@ function VerificationBadge() {
         src={siteConfig.techbehemothsBadge}
         alt="TechBehemoths Verification"
         className="h-4 w-auto"
+      />
+    </a>
+  );
+}
+
+// F6S follow badge.
+function F6SFollowBadge() {
+  const available = useRemoteImageAvailable(siteConfig.f6sBadge);
+  if (!available) return null;
+  return (
+    <a
+      href={siteConfig.f6sFollow}
+      target="_blank"
+      rel="noopener"
+      title="Follow Oluwashina Boladale on F6S"
+      className="inline-flex shrink-0 items-center opacity-90 transition-opacity hover:opacity-100"
+    >
+      <img
+        src={siteConfig.f6sBadge}
+        alt="Follow Oluwashina Boladale on F6S"
+        width={78}
+        height={22}
+        className="h-[22px] w-[78px]"
       />
     </a>
   );
@@ -322,7 +351,7 @@ export function HomePage() {
         </div>
         <div className="mx-auto mt-14 flex max-w-7xl flex-col items-center gap-4 border-t border-plum-foreground/15 pt-6 text-xs text-plum-foreground/60 sm:grid sm:grid-cols-[1fr_auto_1fr] sm:items-center">
           <p className="text-center sm:justify-self-start sm:text-left">© {new Date().getFullYear()} AURALIQUE. All rights reserved.</p>
-          <div className="flex justify-center sm:justify-self-center"><VerificationBadge /></div>
+          <div className="flex items-center justify-center gap-4 sm:justify-self-center"><VerificationBadge /><F6SFollowBadge /></div>
           <div className="flex justify-center gap-6 sm:justify-self-end"><a href="#" className="hover:text-plum-foreground">Privacy Policy</a><a href="#" className="hover:text-plum-foreground">Terms of Service</a></div>
         </div>
       </footer>
